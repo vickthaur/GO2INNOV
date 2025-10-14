@@ -549,6 +549,50 @@ section{padding:clamp(36px,4.5vw,64px) 0}
     // - on NE bloque PAS la soumission (pas de preventDefault)
     // - Formspree reçoit la requête POST et redirige vers _next
   });
+  <script>
+document.getElementById('lead').addEventListener('submit', async function(e) {
+  e.preventDefault();
+  const form = e.currentTarget;
+  const s = document.getElementById('status');
+
+  const data = Object.fromEntries(new FormData(form).entries());
+  if (!data.nom || !data.email || !document.getElementById('rgpd').checked) {
+    s.textContent = 'Champs requis manquants.';
+    s.style.color = '#e11d48';
+    return;
+  }
+  if (!/.+@.+\..+/.test(data.email)) {
+    s.textContent = 'Email invalide.';
+    s.style.color = '#e11d48';
+    return;
+  }
+
+  s.textContent = 'Envoi en cours…';
+  s.style.color = 'inherit';
+
+  try {
+    const res = await fetch(form.action, {
+      method: 'POST',
+      headers: { 'Accept': 'application/json' },
+      body: new FormData(form)
+    });
+
+    if (res.ok) {
+      const params = new URLSearchParams({
+        nom: data.nom,
+        email: data.email
+      });
+      window.location.href = 'merci.html?' + params.toString();
+    } else {
+      s.textContent = 'Erreur serveur. Réessayez plus tard.';
+      s.style.color = '#e11d48';
+    }
+  } catch (err) {
+    s.textContent = 'Erreur de connexion. Vérifiez votre réseau.';
+    s.style.color = '#e11d48';
+  }
+});
+</script>
 </script>
 </body>
 </html>
