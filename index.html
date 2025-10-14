@@ -161,6 +161,39 @@ section{padding:clamp(36px,4.5vw,64px) 0}
   .price .tag{font-size:28px;font-weight:800}
 .price ul{margin:10px 0 0 18px}
 @media (max-width:1000px){ #prix .pricing{grid-template-columns:1fr} }
+  /* Tarifs responsive */
+.pricing{
+  display:grid;
+  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
+  gap:20px;
+}
+.price{
+  background:var(--panel,#fff);
+  border:1px solid var(--bd,#d9dee7);
+  border-radius:18px;
+  padding:24px 18px;
+  text-align:center;
+  box-shadow:var(--shadow,0 4px 16px rgba(0,0,0,.08));
+}
+.price .tag{
+  display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
+  gap:6px;
+  font-size:1.2rem; font-weight:800; margin-bottom:10px;
+}
+.price .per{
+  font-size:.95rem; font-weight:600; color:var(--muted,#4b5563);
+}
+.price ul{ list-style:none; padding:0; margin:0 }
+.price ul li{ border-top:1px solid var(--bd,#e2e8f0); padding:8px 0; font-size:.95rem }
+
+/* Badge “Recommandé” */
+.price .badge{ background:var(--accent,#ffd166); color:#1b2838; padding:6px 10px; border-radius:999px; font-weight:700; font-size:.75rem }
+
+/* Points de rupture */
+@media (max-width:768px){
+  .price{ padding:20px 14px }
+  .price .tag{ font-size:1.1rem }
+}
 </style>
 </head>
 <body data-theme="light">
@@ -292,21 +325,20 @@ section{padding:clamp(36px,4.5vw,64px) 0}
     </div>
   </section>
 
-  <!-- PRICING -->
-<section id="prix">
+  <section id="prix">
   <div class="container">
     <div class="section-head">
       <h2>Tarifs</h2>
       <p class="muted">Matériel à l’achat + supervision au choix.</p>
     </div>
 
-    <div class="pricing" style="display:grid;gap:14px;grid-template-columns:repeat(3,1fr)">
+    <div class="pricing">
       <!-- Essentiel -->
-      <article class="card price" style="position:relative">
+      <article class="card price">
         <h3>Essentiel</h3>
         <div class="tag">
           <span class="count" data-count data-from="0" data-to="5000" data-duration="500"></span>
-          &nbsp;€
+          <span>€</span>
         </div>
         <p class="muted">Cuve 3 000 L, filtration 3 étapes, capteurs, tableau de bord.</p>
         <ul>
@@ -318,14 +350,14 @@ section{padding:clamp(36px,4.5vw,64px) 0}
 
       <!-- Pro (mise en avant) -->
       <article class="card price" style="position:relative;outline:2px solid var(--brand);box-shadow:0 10px 28px rgba(10,68,102,.15)">
-        <div style="position:absolute;top:10px;right:10px" class="badge">Recommandé</div>
+        <div class="badge" style="position:absolute;top:10px;right:10px">Recommandé</div>
         <h3>Pro</h3>
         <div class="tag">
           <span class="count" data-count data-from="0" data-to="5000" data-duration="500"></span>
-          &nbsp;€ + 
+          <span>€</span>
+          <span class="per"> + </span>
           <span class="count" data-count data-from="0" data-to="100" data-duration="500"></span>
-          <div style="margin-bottom: 5 px"></div>
-          &nbsp;€/mois
+          <span class="per">€/mois</span>
         </div>
         <p class="muted">Supervision avancée, alertes temps réel, multi-sites, export conformité.</p>
         <ul>
@@ -351,7 +383,6 @@ section{padding:clamp(36px,4.5vw,64px) 0}
     <p class="muted" style="margin-top:8px">Prix publics indicatifs HT — installation et transport selon site.</p>
   </div>
 </section>
-
   <!-- CTA -->
   <section class="container cta-band" aria-labelledby="cta">
     <h2 id="cta">Sécurisons votre approvisionnement en eau</h2>
