@@ -486,29 +486,30 @@ section{padding:clamp(36px,4.5vw,64px) 0}
     counters.forEach(el => io.observe(el));
   })();
 
+  // === formulaire → envoi mail + redirection ===
   document.getElementById('lead').addEventListener('submit', (e) => {
-  e.preventDefault();
-  const f = e.currentTarget;
-  const s = document.getElementById('status');
+    e.preventDefault();
+    const f = e.currentTarget;
+    const s = document.getElementById('status');
 
-  const data = Object.fromEntries(new FormData(f).entries());
-  if (!data.nom || !data.email || !document.getElementById('rgpd').checked){
-    s.textContent = 'Champs requis manquants.';
-    s.style.color = '#e11d48';
-    return;
-  }
-  if (!/.+@.+\..+/.test(data.email)){
-    s.textContent = 'Email invalide.';
-    s.style.color = '#e11d48';
-    return;
-  }
+    const data = Object.fromEntries(new FormData(f).entries());
+    if (!data.nom || !data.email || !document.getElementById('rgpd').checked){
+      s.textContent = 'Champs requis manquants.';
+      s.style.color = '#e11d48';
+      return;
+    }
+    if (!/.+@.+\..+/.test(data.email)){
+      s.textContent = 'Email invalide.';
+      s.style.color = '#e11d48';
+      return;
+    }
 
-  s.textContent = 'Envoi en cours…';
-  s.style.color = 'inherit';
+    s.textContent = 'Envoi en cours…';
+    s.style.color = 'inherit';
 
-  const to = 'go2innov.iles@gmail.com';
-  const subject = `Nouveau lead GO2INNOV – ${data.nom}`;
-  const body =
+    const to = 'go2innov.iles@gmail.com';
+    const subject = `Nouveau lead GO2INNOV – ${data.nom}`;
+    const body =
 `Nom : ${data.nom}
 Email : ${data.email}
 Établissement : ${data.etablissement || ''}
@@ -518,31 +519,20 @@ ${data.message || ''}
 
 RGPD : ${document.getElementById('rgpd').checked ? 'Oui' : 'Non'}`;
 
-  const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-  try {
-    // Ouvre le client mail
-    window.open(mailto, '_blank'); // 👈 on ouvre dans un nouvel onglet (plus fiable)
-  } catch (err) {
-    console.error('Erreur mailto :', err);
-  }
-
-  // ✅ Redirection assurée vers merci.html (qu'on a forcée après 1,5 seconde)
-  setTimeout(() => {
-    window.location.href =
-      `merci.html?nom=${encodeURIComponent(data.nom || '')}&email=${encodeURIComponent(data.email || '')}`;
-  }, 1500);
-});
-
-    // Ouvre le client mail configuré
     const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-    window.location.href = mailto;
 
-    // redirection vers la page de remerciement après 1,2 s
+    try {
+      // Ouvre le client mail dans un nouvel onglet
+      window.open(mailto, '_blank');
+    } catch (err) {
+      console.error('Erreur mailto :', err);
+    }
+
+    // ✅ Redirection assurée vers merci.html après 1,5 seconde
     setTimeout(() => {
       window.location.href =
         `merci.html?nom=${encodeURIComponent(data.nom || '')}&email=${encodeURIComponent(data.email || '')}`;
-    }, 1200);
+    }, 1500);
   });
 </script>
 </body>
