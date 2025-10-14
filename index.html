@@ -447,7 +447,7 @@ section{padding:clamp(36px,4.5vw,64px) 0}
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) lightbox.style.display = 'none';
   });
-  <script>
+  
 (function(){
   const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
   const fmt = new Intl.NumberFormat('fr-FR');
@@ -475,7 +475,6 @@ section{padding:clamp(36px,4.5vw,64px) 0}
   },{threshold:.4});
   counters.forEach(el=>io.observe(el));
 })();
-</script>
 </script>
 </body>
 </html>
