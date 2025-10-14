@@ -367,31 +367,53 @@ section{padding:clamp(36px,4.5vw,64px) 0}
         <p class="muted">Réponse sous 24 h ouvrées.</p>
       </div>
 
-      <!-- ⚠️ Redirection GET vers merci.html -->
-      <form id="lead" class="card" method="GET" action="merci.html" novalidate>
-        <div class="two">
-          <p><label for="nom">Nom *</label><br><input id="nom" name="nom" required placeholder="Nom Prénom" autocomplete="name"></p>
-          <p><label for="email">Email *</label><br><input id="email" name="email" type="email" required placeholder="vous@hotel.com" autocomplete="email"></p>
-        </div>
-        <div class="two">
-          <p><label for="etab">Établissement</label><br><input id="etab" name="etablissement" placeholder="Hôtel, résidence…"></p>
-          <p><label for="ile">Île / Dépt.</label><br>
-            <select id="ile" name="ile">
-              <option value="">Sélectionner</option>
-              <option>Guadeloupe</option><option>Martinique</option><option>Guyane</option>
-              <option>La Réunion</option><option>Mayotte</option><option>Polynésie</option>
-              <option>Nouvelle-Calédonie</option><option>Saint-Martin</option><option>Saint-Barth</option>
-            </select>
-          </p>
-        </div>
-        <p><label for="message">Vos besoins</label><br><textarea id="message" name="message" rows="5" placeholder="Capacité, zones à desservir, contraintes…"></textarea></p>
-        <p style="display:flex;align-items:center;gap:8px"><input id="rgpd" type="checkbox" required><label for="rgpd">J’accepte d’être recontacté pour GO2INNOV.</label></p>
-        <p><button class="cta" type="submit">Envoyer</button> <span id="status" role="status" aria-live="polite" class="muted"></span></p>
-      </form>
-    </div>
-  </section>
-</main>
+     <form id="lead" class="card" action="https://formspree.io/f/mgvnreoq" method="POST" novalidate>
+  <div class="two">
+    <p><label for="nom">Nom *</label><br>
+      <input id="nom" name="nom" required placeholder="Nom Prénom" autocomplete="name">
+    </p>
+    <p><label for="email">Email *</label><br>
+      <input id="email" name="email" type="email" required placeholder="vous@hotel.com" autocomplete="email">
+    </p>
+  </div>
 
+  <div class="two">
+    <p><label for="etab">Établissement</label><br>
+      <input id="etab" name="etablissement" placeholder="Hôtel, résidence…">
+    </p>
+    <p>
+      <label for="ile">Île / Dépt.</label><br>
+      <select id="ile" name="ile">
+        <option value="">Sélectionner</option>
+        <option>Guadeloupe</option><option>Martinique</option><option>Guyane</option>
+        <option>La Réunion</option><option>Mayotte</option><option>Polynésie</option>
+        <option>Nouvelle-Calédonie</option><option>Saint-Martin</option><option>Saint-Barth</option>
+      </select>
+    </p>
+  </div>
+
+  <p><label for="message">Vos besoins</label><br>
+    <textarea id="message" name="message" rows="5" placeholder="Capacité, zones à desservir, contraintes…"></textarea>
+  </p>
+
+  <!-- RGPD -->
+  <p style="display:flex;align-items:center;gap:8px">
+    <input id="rgpd" type="checkbox" required>
+    <label for="rgpd">J’accepte d’être recontacté pour GO2INNOV.</label>
+  </p>
+
+  <!-- Anti-spam honeypot (optionnel) -->
+  <input type="text" name="_gotcha" style="display:none">
+
+  <!-- Sujet de l'email -->
+  <input type="hidden" name="_subject" value="Nouveau lead GO2INNOV">
+
+  <!-- _next est remplacé dynamiquement par le script pour inclure nom/email -->
+  <p>
+    <button class="cta" type="submit">Envoyer</button>
+    <span id="status" role="status" aria-live="polite" class="muted"></span>
+  </p>
+</form>
 <footer>
   <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
     <div>© <span id="year"></span> GO2INNOV</div>
@@ -403,11 +425,11 @@ section{padding:clamp(36px,4.5vw,64px) 0}
   // === utilitaires ===
   const $ = (s, r=document) => r.querySelector(s);
   const $$ = (s, r=document) => [...r.querySelectorAll(s)];
-  $('#year').textContent = new Date().getFullYear();
+  $('#year') && ($('#year').textContent = new Date().getFullYear());
 
   // === menu mobile ===
   const header = document.querySelector('header');
-  const btn = header.querySelector('.menu-btn');
+  const btn = header?.querySelector('.menu-btn');
   btn?.addEventListener('click', () => {
     const open = header.classList.toggle('open');
     btn.setAttribute('aria-expanded', open ? 'true' : 'false');
@@ -418,12 +440,14 @@ section{padding:clamp(36px,4.5vw,64px) 0}
   const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
   document.body.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
   const mode = $('#mode');
-  mode.checked = document.body.getAttribute('data-theme') === 'dark';
-  mode.addEventListener('change', () => {
-    const t = mode.checked ? 'dark' : 'light';
-    document.body.setAttribute('data-theme', t);
-    localStorage.setItem('theme', t);
-  });
+  if (mode){
+    mode.checked = document.body.getAttribute('data-theme') === 'dark';
+    mode.addEventListener('change', () => {
+      const t = mode.checked ? 'dark' : 'light';
+      document.body.setAttribute('data-theme', t);
+      localStorage.setItem('theme', t);
+    });
+  }
 
   // === scroll doux ===
   $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
@@ -431,7 +455,7 @@ section{padding:clamp(36px,4.5vw,64px) 0}
     if (el) {
       e.preventDefault();
       el.scrollIntoView({behavior: 'smooth'});
-      header.classList.remove('open');
+      header?.classList.remove('open');
       btn?.setAttribute('aria-expanded', 'false');
     }
   }));
@@ -449,7 +473,7 @@ section{padding:clamp(36px,4.5vw,64px) 0}
       });
     });
 
-    close.addEventListener('click', () => lightbox.style.display = 'none');
+    close?.addEventListener('click', () => lightbox.style.display = 'none');
     lightbox.addEventListener('click', (e) => {
       if (e.target === lightbox) lightbox.style.display = 'none';
     });
@@ -486,53 +510,44 @@ section{padding:clamp(36px,4.5vw,64px) 0}
     counters.forEach(el => io.observe(el));
   })();
 
-  // === formulaire → envoi mail + redirection ===
-  document.getElementById('lead').addEventListener('submit', (e) => {
-    e.preventDefault();
+  // === formulaire → Formspree (POST natif) + redirection merci ===
+  const form = document.getElementById('lead');
+  form?.addEventListener('submit', (e) => {
     const f = e.currentTarget;
     const s = document.getElementById('status');
+    const fd = new FormData(f);
+    const data = Object.fromEntries(fd.entries());
 
-    const data = Object.fromEntries(new FormData(f).entries());
-    if (!data.nom || !data.email || !document.getElementById('rgpd').checked){
-      s.textContent = 'Champs requis manquants.';
-      s.style.color = '#e11d48';
+    // Validation côté client
+    if (!data.nom || !data.email || !document.getElementById('rgpd')?.checked){
+      e.preventDefault();
+      s && (s.textContent = 'Champs requis manquants.', s.style.color = '#e11d48');
       return;
     }
     if (!/.+@.+\..+/.test(data.email)){
-      s.textContent = 'Email invalide.';
-      s.style.color = '#e11d48';
+      e.preventDefault();
+      s && (s.textContent = 'Email invalide.', s.style.color = '#e11d48');
       return;
     }
 
-    s.textContent = 'Envoi en cours…';
-    s.style.color = 'inherit';
+    // Message d'état
+    s && (s.textContent = 'Envoi…', s.style.color = 'inherit');
 
-    const to = 'go2innov.iles@gmail.com';
-    const subject = `Nouveau lead GO2INNOV – ${data.nom}`;
-    const body =
-`Nom : ${data.nom}
-Email : ${data.email}
-Établissement : ${data.etablissement || ''}
-Île/Dépt : ${data.ile || ''}
-Besoins :
-${data.message || ''}
+    // ✅ On fixe dynamiquement la page de remerciement avec nom/email en query
+    // (Formspree redirigera vers cette URL après envoi réussi)
+    const qs = new URLSearchParams({ nom: data.nom || '', email: data.email || '' }).toString();
+    // Supprime un éventuel ancien _next
+    f.querySelector('input[name="_next"]')?.remove();
+    // Ajoute _next pour Formspree
+    const next = document.createElement('input');
+    next.type = 'hidden';
+    next.name = '_next';
+    next.value = (location.origin + location.pathname).replace(/index\.html?$/,'') + 'merci.html?' + qs;
+    f.appendChild(next);
 
-RGPD : ${document.getElementById('rgpd').checked ? 'Oui' : 'Non'}`;
-
-    const mailto = `mailto:${to}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
-
-    try {
-      // Ouvre le client mail dans un nouvel onglet
-      window.open(mailto, '_blank');
-    } catch (err) {
-      console.error('Erreur mailto :', err);
-    }
-
-    // ✅ Redirection assurée vers merci.html après 1,5 seconde
-    setTimeout(() => {
-      window.location.href =
-        `merci.html?nom=${encodeURIComponent(data.nom || '')}&email=${encodeURIComponent(data.email || '')}`;
-    }, 1500);
+    // IMPORTANT :
+    // - on NE bloque PAS la soumission (pas de preventDefault)
+    // - Formspree reçoit la requête POST et redirige vers _next
   });
 </script>
 </body>
