@@ -1,0 +1,266 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Merci — GO2INNOV</title>
+<meta name="robots" content="noindex">
+<meta name="description" content="Merci ! Votre demande a bien été transmise. La solution GO2INNOV arrive très vite.">
+
+<style>
+/* ====== Design system sobre & compatible (identique à index) ====== */
+:root{
+  --bg:#f5f7fb; --ink:#0f172a; --muted:#4b5563;
+  --brand:#0a4466; --brand-2:#136e99; --accent:#ffd166;
+  --panel:#ffffff; --panel-2:#eef2f7; --bd:#d9dee7;
+  --radius:18px; --shadow:0 8px 24px rgba(15,23,42,.08);
+}
+[data-theme="dark"]{
+  --bg:#0f1422; --ink:#e9edf5; --muted:#c8d0dc;
+  --panel:#111a2b; --panel-2:#0f1828; --bd:#1f2a3a;
+  --shadow:0 10px 28px rgba(0,0,0,.35);
+}
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+  color:var(--ink);
+  background:
+    radial-gradient(900px 600px at 15% -10%, rgba(19,110,153,.10), transparent 60%),
+    radial-gradient(900px 600px at 85% -20%, rgba(10,68,102,.10), transparent 60%),
+    var(--bg);
+  line-height:1.6;
+}
+img{max-width:100%; display:block}
+a{color:inherit; text-decoration:none}
+.container{width:min(1200px, 100% - 48px); margin-inline:auto}
+
+/* ===== Header (même que index) ===== */
+header{
+  position:sticky; top:0; z-index:50;
+  background:var(--panel); border-bottom:1px solid var(--bd);
+}
+.nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0}
+.brand{display:flex; align-items:center; gap:10px; font-weight:800}
+.brand .logo{
+  width:34px; aspect-ratio:1; border-radius:10px; display:grid; place-items:center;
+  background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; box-shadow:var(--shadow)
+}
+.nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
+.nav a:hover{opacity:.85}
+.menu-btn{display:none}
+.ghost{padding:9px 14px; border:1px solid var(--bd); border-radius:10px; background:var(--panel)}
+.cta{display:inline-grid; place-items:center; padding:10px 16px; border-radius:12px; background:var(--brand); color:#fff; font-weight:700; box-shadow:var(--shadow)}
+.switch{display:inline-flex; align-items:center; gap:8px}
+@media (max-width:860px){
+  .nav ul{display:none}
+  .menu-btn{display:inline-flex; gap:8px; align-items:center}
+  header.open ul{
+    display:grid; gap:10px; position:absolute; left:0; right:0; top:60px;
+    background:var(--panel); border-bottom:1px solid var(--bd); padding:14px;
+  }
+}
+
+/* ===== Hero remerciement ===== */
+.hero{background:linear-gradient(180deg,var(--panel),var(--panel-2)); border-bottom:1px solid var(--bd)}
+.hero-wrap{display:grid; grid-template-columns:1fr; gap:12px; align-items:center; padding:clamp(48px,6vw,84px) 0}
+h1{font-size:clamp(26px,3.2vw,40px); line-height:1.15; margin:.2em 0}
+.lead{color:var(--muted); font-size:clamp(16px,1.2vw,18px); margin:0}
+.badge{
+  display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+  background:var(--accent); color:#1b2838; padding:6px 10px; border-radius:999px; width:max-content; margin-bottom:8px;
+}
+.row{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+
+/* ===== Gallery + cartes ===== */
+section{padding:clamp(36px,4.5vw,64px) 0}
+.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+@media (max-width:1000px){ .grid-3{grid-template-columns:repeat(2,1fr)} }
+@media (max-width:600px){ .grid-3{grid-template-columns:1fr} }
+.card{background:var(--panel); border:1px solid var(--bd); border-radius:16px; box-shadow:var(--shadow); overflow:hidden}
+.card .media{width:100%; height:220px; object-fit:cover}
+.card .body{padding:12px 14px}
+.muted{color:var(--muted)}
+
+/* ===== CTA bande ===== */
+.cta-band{
+  text-align:center; padding:26px; border-radius:18px; border:1px solid var(--bd);
+  background:linear-gradient(180deg,var(--panel),var(--panel-2)); box-shadow:var(--shadow)
+}
+
+/* ===== Footer ===== */
+footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
+/* Fond sombre plein écran */
+#lightbox {
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.8);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+  }
+  #lightbox img {
+    max-width: 90%;
+    max-height: 90%;
+    border-radius: 10px;
+    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+    animation: zoomIn .25s ease;
+  }
+  @keyframes zoomIn {
+    from { transform: scale(.9); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+  }
+  #lightbox:target { display: flex; }
+  #lightbox span {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    font-size: 32px;
+    color: white;
+    cursor: pointer;
+  }
+</style>
+</head>
+<body data-theme="light">
+
+<header>
+  <div class="container nav">
+    <a class="brand" href="index.html" aria-label="Retour à l’accueil GO2INNOV">
+      <span class="logo" aria-hidden="true">💧</span><span>GO2INNOV</span>
+    </a>
+
+    <nav>
+      <button class="ghost menu-btn" aria-expanded="false" aria-controls="menu">☰ Menu</button>
+      <ul id="menu">
+        <li><a href="index.html#solution">Solution</a></li>
+        <li><a href="index.html#usecase">Hôtellerie</a></li>
+        <li><a href="index.html#prix">Tarifs</a></li>
+        <li><a href="index.html#contact">Contact</a></li>
+      </ul>
+    </nav>
+
+    <label class="switch" title="Basculer le thème">
+      <input id="mode" type="checkbox" aria-label="Mode sombre">
+      <span>🌙</span>
+    </label>
+
+    <a class="cta" href="index.html#contact">Retour au contact</a>
+  </div>
+</header>
+
+<main id="top">
+  <!-- HERO -->
+  <section class="hero">
+    <div class="container hero-wrap">
+      <span class="badge">Demande envoyée</span>
+      <h1 id="title">Merci !</h1>
+      <p class="lead" id="desc">
+        Votre demande a bien été transmise. <b>La solution arrive</b> — nous revenons très vite vers vous pour planifier l’audit et la démonstration.
+      </p>
+      <div class="row">
+        <a class="cta" href="index.html">← Retour au site</a>
+        <a class="ghost" href="#galerie">Voir le prototype</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- GALERIE PROTOTYPE -->
+  <section aria-labelledby="galerie">
+    <div class="container">
+      <div class="row" style="justify-content:space-between;align-items:flex-end">
+        <h2 id="galerie" style="margin:0">Notre prototype sur le terrain</h2>
+        <p class="muted" style="margin:0">Local technique · Buanderie · Extérieur (pluie)</p>
+      </div>
+
+      <div class="grid-3" style="margin-top:14px">
+        <article class="card">
+          <img class="media" src="Image/cuve realiste.png" alt="GO2INNOV — vue générale du module">
+          <div class="body"><p class="muted">Vue générale — Cuve 3 000 L, filtration 3 étapes, capteurs IoT.</p></div>
+          <div id="lightbox">
+            <span id="close">✕</span>
+            <img src="" alt="Agrandissement">
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="media" src="Image/croquis cuve.png" alt="GO2INNOV — détail bloc de filtration">
+          <div class="body"><p class="muted">croquis de la cuve GO2INNOV</p></div>
+          <div id="lightbox">
+            <span id="close">✕</span>
+            <img src="" alt="Agrandissement">
+          </div>
+        </article>
+
+        <article class="card">
+          <img class="media" src="Image/appli.png" alt="GO2INNOV — récupération d’eau de pluie">
+          <div class="body"><p class="muted">application de gestion</p></div>
+          <div id="lightbox">
+            <span id="close">✕</span>
+            <img src="" alt="Agrandissement">
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINALE -->
+  <section class="container cta-band" aria-labelledby="next">
+    <h2 id="next">Et maintenant ?</h2>
+    <p class="muted" id="recap">Nous confirmons vos informations et revenons avec un créneau d’audit.</p>
+    <p><a class="cta" href="index.html#contact">Ajouter une précision</a></p>
+  </section>
+</main>
+
+<footer>
+  <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+    <div>© <span id="year"></span> GO2INNOV</div>
+    <div><a href="index.html#prix">Tarifs</a> · <a href="index.html#contact">Contact</a></div>
+  </div>
+</footer>
+
+<script>
+  // util
+  const $=(s,r=document)=>r.querySelector(s);
+  $('#year').textContent=new Date().getFullYear();
+
+  // thème (identique index)
+  const saved=localStorage.getItem('theme');
+  const prefersDark=matchMedia('(prefers-color-scheme: dark)').matches;
+  document.body.setAttribute('data-theme', saved || (prefersDark?'dark':'light'));
+  const mode=$('#mode'); mode.checked=document.body.getAttribute('data-theme')==='dark';
+  mode.addEventListener('change',()=>{ const t=mode.checked?'dark':'light'; document.body.setAttribute('data-theme',t); localStorage.setItem('theme',t); });
+
+  // menu mobile (si tu ajoutes le bouton plus tard)
+  const header=document.querySelector('header'); const btn=header.querySelector('.menu-btn');
+  btn?.addEventListener('click',()=>{ const open=header.classList.toggle('open'); btn.setAttribute('aria-expanded', open?'true':'false'); });
+
+  // personnalisation à partir de la query string
+  const qs=new URLSearchParams(location.search);
+  const nom=(qs.get('nom')||'').trim();
+  const email=(qs.get('email')||'').trim();
+  if(nom){
+    $('#title').textContent=`Merci ${nom} !`;
+    $('#desc').innerHTML=`${nom}, votre demande a bien été transmise. <b>La solution arrive</b> — nous revenons très vite vers vous pour planifier l’audit et la démonstration.`;
+  }
+  if(email){
+    $('#recap').textContent=`Nous confirmons vos informations (${email}) et revenons avec un créneau d’audit.`;
+  }
+  const lightbox = document.querySelector('#lightbox');
+  const imgLarge = lightbox.querySelector('img');
+  const close = lightbox.querySelector('#close');
+
+  document.querySelectorAll('.media').forEach(img => {
+    img.addEventListener('click', () => {
+      imgLarge.src = img.src;
+      lightbox.style.display = 'flex';
+    });
+  });
+
+  close.addEventListener('click', () => lightbox.style.display = 'none');
+  lightbox.addEventListener('click', (e) => {
+    if (e.target === lightbox) lightbox.style.display = 'none';
+  });
+</script>
+</body>
+</html>
