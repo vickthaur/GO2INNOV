@@ -158,6 +158,9 @@ section{padding:clamp(36px,4.5vw,64px) 0}
     color: white;
     cursor: pointer;
   }
+  .price .tag{font-size:28px;font-weight:800}
+.price ul{margin:10px 0 0 18px}
+@media (max-width:1000px){ #prix .pricing{grid-template-columns:1fr} }
 </style>
 </head>
 <body data-theme="light">
@@ -290,40 +293,63 @@ section{padding:clamp(36px,4.5vw,64px) 0}
   </section>
 
   <!-- PRICING -->
-  <section id="prix">
-    <div class="container">
-      <div class="section-head">
-        <h2>Tarifs</h2>
-        <p class="muted">Matériel à l’achat + supervision au choix.</p>
-      </div>
-      <div class="pricing">
-        <article class="card price">
-          <h3>Essentiel</h3>
-          <div class="tag">5 000 €</div>
-          <p class="muted">Cuve 3 000 L, filtration 3 étapes, capteurs, tableau de bord.</p>
-          <ul>
-            <li>Bascule automatique</li><li>Rapports mensuels</li><li>Assistance e-mail</li>
-          </ul>
-        </article>
-        <article class="card price">
-          <h3>Pro</h3>
-          <div class="tag">5 000€ + 100 €/mois</div>
-          <p class="muted">Supervision avancée, alertes temps réel, multi-sites, export conformité.</p>
-          <ul>
-            <li>API & intégrations</li><li>Scénarios d’économie</li><li>Support prioritaire</li>
-          </ul>
-        </article>
-        <article class="card price">
-          <h3>Sur-mesure</h3>
-          <div class="tag">Devis</div>
-          <p class="muted">Capacités étendues, GTB, SLA, installation clé en main Guadeloupe.</p>
-          <ul>
-            <li>Audit site & ROI</li><li>Formation équipe</li><li>Aides & financements</li>
-          </ul>
-        </article>
-      </div>
+<section id="prix">
+  <div class="container">
+    <div class="section-head">
+      <h2>Tarifs</h2>
+      <p class="muted">Matériel à l’achat + supervision au choix.</p>
     </div>
-  </section>
+
+    <div class="pricing" style="display:grid;gap:14px;grid-template-columns:repeat(3,1fr)">
+      <!-- Essentiel -->
+      <article class="card price" style="position:relative">
+        <h3>Essentiel</h3>
+        <div class="tag">
+          <span class="count" data-count data-from="0" data-to="5000" data-duration="1200"></span>
+          &nbsp;€
+        </div>
+        <p class="muted">Cuve 3 000 L, filtration 3 étapes, capteurs, tableau de bord.</p>
+        <ul>
+          <li>Bascule automatique</li>
+          <li>Rapports mensuels</li>
+          <li>Assistance e-mail</li>
+        </ul>
+      </article>
+
+      <!-- Pro (mise en avant) -->
+      <article class="card price" style="position:relative;outline:2px solid var(--brand);box-shadow:0 10px 28px rgba(10,68,102,.15)">
+        <div style="position:absolute;top:10px;right:10px" class="badge">Recommandé</div>
+        <h3>Pro</h3>
+        <div class="tag">
+          <span class="count" data-count data-from="0" data-to="5000" data-duration="1200"></span>
+          &nbsp;€ + 
+          <span class="count" data-count data-from="0" data-to="100" data-duration="1000"></span>
+          &nbsp;€/mois
+        </div>
+        <p class="muted">Supervision avancée, alertes temps réel, multi-sites, export conformité.</p>
+        <ul>
+          <li>API & intégrations</li>
+          <li>Scénarios d’économie</li>
+          <li>Support prioritaire</li>
+        </ul>
+      </article>
+
+      <!-- Sur-mesure -->
+      <article class="card price">
+        <h3>Sur-mesure</h3>
+        <div class="tag">Devis</div>
+        <p class="muted">Capacités étendues, GTB, SLA, installation clé en main Guadeloupe.</p>
+        <ul>
+          <li>Audit site & ROI</li>
+          <li>Formation équipe</li>
+          <li>Aides & financements</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="muted" style="margin-top:8px">Prix publics indicatifs HT — installation et transport selon site.</p>
+  </div>
+</section>
 
   <!-- CTA -->
   <section class="container cta-band" aria-labelledby="cta">
@@ -421,6 +447,35 @@ section{padding:clamp(36px,4.5vw,64px) 0}
   lightbox.addEventListener('click', (e) => {
     if (e.target === lightbox) lightbox.style.display = 'none';
   });
+  <script>
+(function(){
+  const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const fmt = new Intl.NumberFormat('fr-FR');
+  const ease = t => 1 - Math.pow(1 - t, 3);
+
+  const animate = el => {
+    const from = +el.dataset.from || 0;
+    const to = +el.dataset.to || 0;
+    const dur = +el.dataset.duration || 1200;
+    if (reduce){ el.textContent = fmt.format(to); return; }
+    let start=null;
+    const step = ts => {
+      if(!start) start=ts;
+      const p = Math.min((ts-start)/dur,1);
+      const val = from + (to-from)*ease(p);
+      el.textContent = fmt.format(val);
+      if(p<1) requestAnimationFrame(step);
+    };
+    requestAnimationFrame(step);
+  };
+
+  const counters = document.querySelectorAll('[data-count]');
+  const io = new IntersectionObserver(es=>{
+    es.forEach(e=>{ if(e.isIntersecting){ animate(e.target); io.unobserve(e.target); }});
+  },{threshold:.4});
+  counters.forEach(el=>io.observe(el));
+})();
+</script>
 </script>
 </body>
 </html>
