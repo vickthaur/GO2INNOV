@@ -1,629 +1,636 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>GO2INNOV — Autonomie hydrique pour l’hôtellerie Guadeloupe</title>
-<meta name="description" content="GO2INNOV assure une eau continue et maîtrisée pour les hôtels et résidences des Guadeloupe : stockage, filtration, capteurs IoT, supervision.">
+  <!-- ===== META DE BASE / SEO ===== -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="index,follow,max-image-preview:large,max-snippet:-1,max-video-preview:-1">
+  <meta name="theme-color" content="#0a4466">
+  <meta name="color-scheme" content="light dark">
+  <meta name="format-detection" content="telephone=no">
 
-<style>
-/* ====== Design system sobre & compatible ====== */
-:root{
-  --bg:#f5f7fb; --ink:#0f172a; --muted:#4b5563;
-  --brand:#0a4466; --brand-2:#136e99; --accent:#ffd166;
-  --panel:#ffffff; --panel-2:#eef2f7; --bd:#d9dee7;
-  --radius:18px; --shadow:0 8px 24px rgba(15,23,42,.08);
-}
-[data-theme="dark"]{
-  --bg:#0f1422; --ink:#e9edf5; --muted:#c8d0dc;
-  --panel:#111a2b; --panel-2:#0f1828; --bd:#1f2a3a;
-  --shadow:0 10px 28px rgba(0,0,0,.35);
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
-  color:var(--ink);
-  background:
-    radial-gradient(900px 600px at 15% -10%, rgba(19,110,153,.10), transparent 60%),
-    radial-gradient(900px 600px at 85% -20%, rgba(10,68,102,.10), transparent 60%),
-    var(--bg);
-  line-height:1.6;
-}
-img{max-width:100%; display:block}
-a{color:inherit; text-decoration:none}
-.container{width:min(1200px, 100% - 48px); margin-inline:auto}
+  <title>GO2INNOV — Autonomie hydrique pour l’hôtellerie en Guadeloupe</title>
+  <meta name="description" content="GO2INNOV assure une eau continue, maîtrisée et traçable pour l’hôtellerie et les résidences en Guadeloupe : stockage, filtration, capteurs IoT, supervision.">
 
-/* ===== Header simple (solide, sans blur) ===== */
-header{
-  position:sticky; top:0; z-index:50;
-  background:var(--panel); border-bottom:1px solid var(--bd);
-}
-.nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0}
-.brand{display:flex; align-items:center; gap:10px; font-weight:800}
-.brand .logo{
-  width:34px; aspect-ratio:1; border-radius:10px; display:grid; place-items:center;
-  background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; box-shadow:var(--shadow)
-}
-.nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
-.nav a:hover{opacity:.85}
-.menu-btn{display:none}
-.ghost{padding:9px 14px; border:1px solid var(--bd); border-radius:10px; background:var(--panel)}
-.cta{display:inline-grid; place-items:center; padding:10px 16px; border-radius:12px; background:var(--brand); color:#fff; font-weight:700; box-shadow:var(--shadow)}
-.switch{display:inline-flex; align-items:center; gap:8px}
-@media (max-width:860px){
-  .nav ul{display:none}
-  .menu-btn{display:inline-flex; gap:8px; align-items:center}
-  header.open ul{
-    display:grid; gap:10px; position:absolute; left:0; right:0; top:60px;
-    background:var(--panel); border-bottom:1px solid var(--bd); padding:14px;
+  <!-- (Optionnel si domaine connu)
+  <link rel="canonical" href="https://votre-domaine.tld/">
+  <link rel="alternate" hreflang="fr-FR" href="https://votre-domaine.tld/">
+  <link rel="alternate" hreflang="x-default" href="https://votre-domaine.tld/">
+  -->
+
+  <!-- ===== OPEN GRAPH / TWITTER ===== -->
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="GO2INNOV — Autonomie hydrique hôtelière">
+  <meta property="og:description" content="Stockage, filtration, capteurs IoT et supervision pour une eau continue en Guadeloupe.">
+  <meta property="og:image" content="Image/cuve%20realiste.png">
+  <meta property="og:locale" content="fr_FR">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="GO2INNOV — Autonomie hydrique hôtelière">
+  <meta name="twitter:description" content="Eau continue et traçable : stockage, filtration, IoT, supervision.">
+  <meta name="twitter:image" content="Image/cuve%20realiste.png">
+
+  <!-- ===== FAVICONS (si présents) ===== -->
+  <link rel="icon" href="/favicon.ico" sizes="any">
+  <link rel="shortcut icon" href="/favicon.ico">
+
+  <!-- ===== PRELOAD (Hero) ===== -->
+  <link rel="preload" as="image" href="Image/cuve%20realiste.png">
+
+  <!-- ===== JSON-LD : ProfessionalService (minimal, sans adresse précise) ===== -->
+  <script type="application/ld+json">
+  {
+    "@context":"https://schema.org",
+    "@type":"ProfessionalService",
+    "name":"GO2INNOV",
+    "description":"Autonomie hydrique pour hôtellerie et résidences en Guadeloupe : stockage, filtration, capteurs IoT, supervision.",
+    "areaServed":["Guadeloupe","Antilles françaises"],
+    "image":"Image/cuve%20realiste.png"
   }
-}
+  </script>
 
-/* ===== Hero (fond propre, texte non masqué) ===== */
-.hero{background:linear-gradient(180deg,var(--panel),var(--panel-2)); border-bottom:1px solid var(--bd)}
-.hero-wrap{display:grid; grid-template-columns:1.05fr .95fr; gap:36px; align-items:center; padding:clamp(48px,6vw,96px) 0}
-@media (max-width:900px){ .hero-wrap{grid-template-columns:1fr} }
-h1{font-size:clamp(28px,3.5vw,44px); line-height:1.15; margin:0 0 10px}
-.lead{color:var(--muted); font-size:clamp(16px,1.3vw,18px); margin:0}
-.actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
-.badge{
-  display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
-  background:var(--accent); color:#1b2838; padding:6px 10px; border-radius:999px; width:max-content; margin-bottom:8px;
-}
-.hero-card{background:var(--panel); border:1px solid var(--bd); border-radius:var(--radius); box-shadow:var(--shadow); padding:14px}
-.kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px}
-.kpi{padding:12px; border-radius:12px; border:1px solid var(--bd); background:var(--panel)}
-.kpi b{font-size:22px}
-@media (max-width:680px){ .kpis{grid-template-columns:1fr} }
+  <!-- ===== STYLES ===== -->
+  <style>
+    /* ===== Design system (sobre & compatible) ===== */
+    :root{
+      --bg:#f5f7fb; --ink:#0f172a; --muted:#4b5563;
+      --brand:#0a4466; --brand-2:#136e99; --accent:#ffd166;
+      --panel:#ffffff; --panel-2:#eef2f7; --bd:#d9dee7;
+      --radius:18px; --shadow:0 8px 24px rgba(15,23,42,.08);
+      --focus: rgba(56,189,248,.22);
+    }
+    [data-theme="dark"]{
+      --bg:#0f1422; --ink:#e9edf5; --muted:#c8d0dc;
+      --panel:#111a2b; --panel-2:#0f1828; --bd:#1f2a3a;
+      --shadow:0 10px 28px rgba(0,0,0,.35);
+    }
 
-/* ===== Sections ===== */
-section{padding:clamp(42px,5vw,78px) 0}
-.section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:18px}
-h2{font-size:clamp(22px,2.4vw,32px); margin:0}
-.muted{color:var(--muted)}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
+      color:var(--ink);
+      background:
+        radial-gradient(900px 600px at 15% -10%, rgba(19,110,153,.10), transparent 60%),
+        radial-gradient(900px 600px at 85% -20%, rgba(10,68,102,.10), transparent 60%),
+        var(--bg);
+      line-height:1.6;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
 
-/* ===== Features ===== */
-.grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
-@media (max-width:1000px){ .grid-4{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:560px){ .grid-4{grid-template-columns:1fr} }
-.card{background:var(--panel); border:1px solid var(--bd); border-radius:16px; box-shadow:var(--shadow); padding:16px}
-.card h3{margin:0 0 6px; font-size:18px}
-.card p{margin:0; color:var(--muted)}
+    img{max-width:100%; display:block; height:auto}
+    a{color:inherit; text-decoration:none; transition:opacity .2s ease, color .2s ease}
+    a:hover{opacity:.9}
+    .container{width:min(1200px, 100% - 48px); margin-inline:auto}
 
-/* ===== Use case ===== */
-.grid-2{display:grid; grid-template-columns:1.05fr .95fr; gap:16px}
-@media (max-width:900px){ .grid-2{grid-template-columns:1fr} }
-.list{display:grid; gap:10px}
-.item{display:flex; gap:10px; align-items:flex-start; padding:12px; border:1px dashed var(--bd); border-radius:12px; background:var(--panel)}
+    /* Skip link */
+    .skip-to-content{
+      position:absolute; left:-9999px; top:auto; width:1px; height:1px; overflow:hidden
+    }
+    .skip-to-content:focus{
+      position:fixed; left:16px; top:16px; width:auto; height:auto;
+      background:var(--brand); color:#fff; padding:10px 14px; border-radius:10px; z-index:10000;
+      box-shadow:0 10px 30px rgba(0,0,0,.25);
+    }
 
-/* ===== Pricing ===== */
-.pricing{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
-@media (max-width:1000px){ .pricing{grid-template-columns:1fr} }
-.price .tag{font-size:32px; font-weight:800}
+    /* Focus visible */
+    :where(a,button,input,select,textarea,.cta,.ghost,.menu-btn):focus-visible{
+      outline:none; box-shadow:0 0 0 4px var(--focus)
+    }
 
-/* ===== CTA bande ===== */
-.cta-band{
-  text-align:center; padding:28px; border-radius:18px; border:1px solid var(--bd);
-  background:linear-gradient(180deg,var(--panel),var(--panel-2)); box-shadow:var(--shadow)
-}
+    /* ===== Header (solide) ===== */
+    header{
+      position:sticky; top:0; z-index:50;
+      background:var(--panel); border-bottom:1px solid var(--bd)
+    }
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800}
+    .brand .logo{
+      width:34px; aspect-ratio:1; border-radius:10px; display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; box-shadow:var(--shadow)
+    }
+    nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
+    .menu-btn{display:none}
+    .ghost{padding:9px 14px; border:1px solid var(--bd); border-radius:10px; background:var(--panel)}
+    .cta{display:inline-grid; place-items:center; padding:10px 16px; border-radius:12px; background:var(--brand); color:#fff; font-weight:700; box-shadow:var(--shadow)}
+    .switch{display:inline-flex; align-items:center; gap:8px}
+    @media (max-width:860px){
+      nav ul{display:none}
+      .menu-btn{display:inline-flex; gap:8px; align-items:center}
+      header.open ul{
+        display:grid; gap:10px; position:absolute; left:0; right:0; top:60px;
+        background:var(--panel); border-bottom:1px solid var(--bd); padding:14px;
+      }
+    }
 
-/* ===== Form ===== */
-form{display:grid; gap:12px}
-.two{display:grid; grid-template-columns:1fr 1fr; gap:12px}
-@media (max-width:700px){ .two{grid-template-columns:1fr} }
-input,textarea,select{
-  width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--bd); background:var(--panel); color:var(--ink)
-}
-input:focus,textarea:focus,select:focus{outline:2px solid #86c5e6}
+    /* ===== Hero ===== */
+    .hero{background:linear-gradient(180deg,var(--panel),var(--panel-2)); border-bottom:1px solid var(--bd)}
+    .hero-wrap{display:grid; grid-template-columns:1.05fr .95fr; gap:36px; align-items:center; padding:clamp(48px,6vw,96px) 0}
+    @media (max-width:900px){ .hero-wrap{grid-template-columns:1fr} }
+    h1{font-size:clamp(28px,3.5vw,44px); line-height:1.15; margin:0 0 10px}
+    .lead{color:var(--muted); font-size:clamp(16px,1.3vw,18px); margin:0}
+    .actions{display:flex; gap:10px; flex-wrap:wrap; margin-top:16px}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+      background:var(--accent); color:#1b2838; padding:6px 10px; border-radius:999px; width:max-content; margin-bottom:8px;
+    }
+    .hero-card{background:var(--panel); border:1px solid var(--bd); border-radius:var(--radius); box-shadow:var(--shadow); padding:14px}
+    .kpis{display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin-top:14px}
+    .kpi{padding:12px; border-radius:12px; border:1px solid var(--bd); background:var(--panel)}
+    .kpi b{font-size:22px}
+    @media (max-width:680px){ .kpis{grid-template-columns:1fr} }
 
-/* ===== Footer ===== */
-footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
-/* ===== Gallery + cartes ===== */
-section{padding:clamp(36px,4.5vw,64px) 0}
-.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
-@media (max-width:1000px){ .grid-3{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:600px){ .grid-3{grid-template-columns:1fr} }
-.card{background:var(--panel); border:1px solid var(--bd); border-radius:16px; box-shadow:var(--shadow); overflow:hidden}
-.card .media{width:100%; height:220px; object-fit:cover}
-.card .body{padding:12px 14px}
-.muted{color:var(--muted)}
-/* Fond sombre plein écran */
-#lightbox {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-  #lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    animation: zoomIn .25s ease;
-  }
-  @keyframes zoomIn {
-    from { transform: scale(.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-  #lightbox:target { display: flex; }
-  #lightbox span {
-    position: absolute;
-    top: 2%;
-    right: 2%;
-    font-size: 32px;
-    color: white;
-    cursor: pointer;
-  }
-  .price .tag{font-size:28px;font-weight:800}
-.price ul{margin:10px 0 0 18px}
-@media (max-width:1000px){ #prix .pricing{grid-template-columns:1fr} }
-  /* Tarifs responsive */
-.pricing{
-  display:grid;
-  grid-template-columns:repeat(auto-fit, minmax(260px, 1fr));
-  gap:20px;
-}
-.price{
-  background:var(--panel,#fff);
-  border:1px solid var(--bd,#d9dee7);
-  border-radius:18px;
-  padding:24px 18px;
-  text-align:center;
-  box-shadow:var(--shadow,0 4px 16px rgba(0,0,0,.08));
-}
-.price .tag{
-  display:flex; align-items:center; justify-content:center; flex-wrap:wrap;
-  gap:6px;
-  font-size:1.2rem; font-weight:800; margin-bottom:10px;
-}
-.price .per{
-  font-size:.95rem; font-weight:600; color:var(--muted,#4b5563);
-}
-.price ul{ list-style:none; padding:0; margin:0 }
-.price ul li{ border-top:1px solid var(--bd,#e2e8f0); padding:8px 0; font-size:.95rem }
+    /* ===== Sections ===== */
+    section{padding:clamp(42px,5vw,78px) 0}
+    .section-head{display:flex; align-items:flex-end; justify-content:space-between; gap:16px; margin-bottom:18px}
+    h2{font-size:clamp(22px,2.4vw,32px); margin:0}
+    .muted{color:var(--muted)}
 
-/* Badge “Recommandé” */
-.price .badge{ background:var(--accent,#ffd166); color:#1b2838; padding:6px 10px; border-radius:999px; font-weight:700; font-size:.75rem }
+    /* ===== Cards / Grids ===== */
+    .grid-4{display:grid; grid-template-columns:repeat(4,1fr); gap:14px}
+    @media (max-width:1000px){ .grid-4{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:560px){ .grid-4{grid-template-columns:1fr} }
+    .grid-2{display:grid; grid-template-columns:1.05fr .95fr; gap:16px}
+    @media (max-width:900px){ .grid-2{grid-template-columns:1fr} }
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    @media (max-width:1000px){ .grid-3{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:600px){ .grid-3{grid-template-columns:1fr} }
 
-/* Points de rupture */
-@media (max-width:768px){
-  .price{ padding:20px 14px }
-  .price .tag{ font-size:1.1rem }
-}
-</style>
+    .card{background:var(--panel); border:1px solid var(--bd); border-radius:16px; box-shadow:var(--shadow); padding:16px}
+    .card .media{width:100%; height:220px; object-fit:cover; border-radius:12px}
+    .card h3{margin:0 0 6px; font-size:18px}
+    .card p{margin:0; color:var(--muted)}
+
+    /* ===== Use case list ===== */
+    .list{display:grid; gap:10px}
+    .item{display:flex; gap:10px; align-items:flex-start; padding:12px; border:1px dashed var(--bd); border-radius:12px; background:var(--panel)}
+
+    /* ===== Pricing ===== */
+    .pricing{display:grid; grid-template-columns:repeat(auto-fit, minmax(260px, 1fr)); gap:20px}
+    .price{
+      background:var(--panel); border:1px solid var(--bd); border-radius:18px;
+      padding:24px 18px; text-align:center; box-shadow:var(--shadow)
+    }
+    .price .tag{display:flex; align-items:center; justify-content:center; flex-wrap:wrap; gap:6px; font-size:1.2rem; font-weight:800; margin-bottom:10px}
+    .price .per{font-size:.95rem; font-weight:600; color:var(--muted)}
+    .price ul{ list-style:none; padding:0; margin:0 }
+    .price ul li{ border-top:1px solid var(--bd); padding:8px 0; font-size:.95rem }
+    .price .badge{ background:var(--accent); color:#1b2838; padding:6px 10px; border-radius:999px; font-weight:700; font-size:.75rem }
+
+    /* ===== CTA band ===== */
+    .cta-band{
+      text-align:center; padding:28px; border-radius:18px; border:1px solid var(--bd);
+      background:linear-gradient(180deg,var(--panel),var(--panel-2)); box-shadow:var(--shadow)
+    }
+
+    /* ===== Form ===== */
+    form{display:grid; gap:12px; position:relative}
+    .two{display:grid; grid-template-columns:1fr 1fr; gap:12px}
+    @media (max-width:700px){ .two{grid-template-columns:1fr} }
+    input,textarea,select{
+      width:100%; padding:12px 14px; border-radius:10px; border:1px solid var(--bd); background:var(--panel); color:var(--ink)
+    }
+    input::placeholder,textarea::placeholder{ color:#8392a6 }
+    input:focus,textarea:focus,select:focus{outline:2px solid #86c5e6}
+    .status{font-size:.95rem}
+
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
+
+    /* ===== Lightbox (unique, global) ===== */
+    #lightbox{
+      position: fixed; inset: 0; background: rgba(0,0,0,0.8);
+      display: none; align-items: center; justify-content: center; z-index: 9999;
+    }
+    #lightbox img{
+      max-width: 90%; max-height: 90%; border-radius: 10px;
+      box-shadow: 0 10px 40px rgba(0,0,0,0.6); animation: zoomIn .25s ease;
+    }
+    #lightbox .close{
+      position: absolute; top: 2%; right: 2%; font-size: 32px; color: #fff; cursor: pointer;
+    }
+    @keyframes zoomIn{ from { transform: scale(.92); opacity: 0 } to { transform: scale(1); opacity: 1 } }
+  </style>
 </head>
-<body data-theme="light">
 
-<header>
-  <div class="container nav">
-    <a class="brand" href="#top" aria-label="GO2INNOV Accueil">
-      <span class="logo" aria-hidden="true">💧</span><span>GO2INNOV</span>
-    </a>
+<body data-theme="light" id="top">
+  <a class="skip-to-content" href="#main">Aller au contenu principal</a>
 
-    <nav>
-      <button class="ghost menu-btn" aria-expanded="false" aria-controls="menu">☰ Menu</button>
-      <ul id="menu">
-        <li><a href="#solution">Solution</a></li>
-        <li><a href="#usecase">Hôtellerie</a></li>
-        <li><a href="#prix">Tarifs</a></li>
-        <li><a href="#contact">Contact</a></li>
-      </ul>
-    </nav>
+  <!-- ===== HEADER ===== -->
+  <header>
+    <div class="container nav">
+      <a class="brand" href="#top" aria-label="GO2INNOV Accueil">
+        <span class="logo" aria-hidden="true">💧</span><span>GO2INNOV</span>
+      </a>
 
-    <label class="switch" title="Basculer le thème">
-      <input id="mode" type="checkbox" aria-label="Mode sombre">
-      <span>🌙</span>
-    </label>
-
-    <a class="cta" href="#contact">Demander une démo</a>
-  </div>
-</header>
-
-<main id="top">
-  <!-- HERO -->
-  <section class="hero">
-    <div class="container hero-wrap">
-      <div>
-        <span class="badge">Guadeloupe · Hôtellerie & Résidences</span>
-        <h1>Une eau continue, maîtrisée et traçable. Même en cas de coupure.</h1>
-        <p class="lead">GO2INNOV combine <b>stockage</b>, <b>filtration</b> et <b>capteurs IoT</b> avec un pilotage simple pour sécuriser l’expérience client et les coûts d’exploitation.</p>
-        <div class="actions">
-          <a class="cta" href="#contact">Audit gratuit</a>
-          <a class="ghost" href="#solution">Voir la solution</a>
-        </div>
-        <div class="kpis">
-          <div class="kpi"><b>⏱ Continuité</b><br><span class="muted">Bascule auto sur réserve</span></div>
-          <div class="kpi"><b>♻︎ −30–40%</b><br><span class="muted">Eau potable économisée</span></div>
-          <div class="kpi"><b>📈 Traçabilité</b><br><span class="muted">Qualité & conso en temps réel</span></div>
-        </div>
-      </div>
-       <aside class="hero-card" aria-label="Illustration technique">
-        <figure style="margin:0;display:grid;gap:8px">
-          <!-- Remplace 'src' par ton image -->
-          <img src="Image/cuve realiste.png" alt="Prototype GO2INNOV : cuve, filtration, capteurs et supervision">
-          <figcaption class="muted" style="font-size:14px">Prototype 3 000 L · Filtration 3 étapes · Capteurs niveau/qualité · Supervision web & mobile</figcaption>
-        </figure>
-      </aside>
-    </div>
-  </section>
-
-  <!-- SOLUTION -->
-  <section id="solution">
-    <div class="container">
-      <div class="section-head">
-        <h2>La solution</h2>
-        <p class="muted">Modulaire, résistante, pensée pour les contraintes tropicales.</p>
-      </div>
-      <div class="grid-4">
-        <article class="card"><h3>Stockage sécurisé</h3><p>Cuves 3 000 L+ anti-corrosion, alimentation réseau & pluie, clapets anti-retour.</p></article>
-        <article class="card"><h3>Filtration 3 étapes</h3><p>Pré-filtration, charbon actif, UV. Qualité stable pour cuisines & buanderies.</p></article>
-        <article class="card"><h3>Capteurs & alertes</h3><p>Niveau, turbidité, pH. Alertes coupure/fuite. Historique exportable.</p></article>
-        <article class="card"><h3>Supervision connectée</h3><p>Tableau de bord web/mobile, bascule automatique, gestion multi-sites.</p></article>
-      </div>
-    </div>
-  </section>
-
-  <!-- USE CASE -->
-  <section id="usecase">
-    <div class="container grid-2">
-      <div>
-        <h2>Conçu pour l’hôtellerie Guadeloupe</h2>
-        <div class="list">
-          <div class="item"><span>🏨</span><div><b>Confort client garanti</b><br>Pression stable, eau disponible en chambre, restauration, buanderie.</div></div>
-          <div class="item"><span>🧺</span><div><b>Opérations sécurisées</b><br>Plan de continuité : autonomie pendant les coupures, maintenance planifiée.</div></div>
-          <div class="item"><span>🌿</span><div><b>RSE crédible</b><br>Réemploi des eaux grises, collecte pluie, indicateurs publics.</div></div>
-          <div class="item"><span>💶</span><div><b>Coûts maîtrisés</b><br>Moins de citernes, moins d’arrêts d’activité, ROI mesurable.</div></div>
-        </div>
-      </div>
-      <aside class="card">
-        <h3>Proposition de valeur</h3>
-        <p><b>GO2INNOV</b> garantit une autonomie hydrique <b>intelligente et durable</b> pour préserver l’image, maîtriser les coûts et assurer une expérience irréprochable, même en cas de crise.</p>
-      </aside>
-    </div>
-  </section>
-
-  <!-- GALERIE PROTOTYPE -->
-   <section aria-labelledby="galerie">
-    <div class="container">
-      <div class="row" style="justify-content:space-between;align-items:flex-end">
-        <h2 id="galerie" style="margin:0">Notre prototype sur le terrain</h2>
-        <p class="muted" style="margin:0">Local technique · Buanderie · Extérieur (pluie)</p>
-      </div>
-
-      <div class="grid-3" style="margin-top:14px">
-        <article class="card">
-          <img class="media" src="Image/cuve realiste.png" alt="GO2INNOV — vue générale du module">
-          <div class="body"><p class="muted">Vue générale — Cuve 3 000 L, filtration 3 étapes, capteurs IoT.</p></div>
-          <div id="lightbox">
-            <span id="close">✕</span>
-            <img src="" alt="Agrandissement">
-          </div>
-        </article>
-
-        <article class="card">
-          <img class="media" src="Image/croquis cuve.png" alt="GO2INNOV — détail bloc de filtration">
-          <div class="body"><p class="muted">croquis de la cuve GO2INNOV</p></div>
-          <div id="lightbox">
-            <span id="close">✕</span>
-            <img src="" alt="Agrandissement">
-          </div>
-        </article>
-
-        <article class="card">
-          <img class="media" src="Image/appli.png" alt="GO2INNOV — récupération d’eau de pluie">
-          <div class="body"><p class="muted">application de gestion</p></div>
-          <div id="lightbox">
-            <span id="close">✕</span>
-            <img src="" alt="Agrandissement">
-          </div>
-        </article>
-      </div>
-    </div>
-  </section>
-  
-  <!-- prix -->
-  
-  <section id="prix">
-  <div class="container">
-    <div class="section-head">
-      <h2>Tarifs</h2>
-      <p class="muted">Matériel à l’achat + supervision au choix.</p>
-    </div>
-
-    <div class="pricing">
-      <!-- Essentiel -->
-      <article class="card price">
-        <h3>Essentiel</h3>
-        <div class="tag">
-          <span class="count" data-count data-from="0" data-to="5000" data-duration="500"></span>
-          <span>€</span>
-        </div>
-        <p class="muted">Cuve 3 000 L, filtration 3 étapes, capteurs, tableau de bord.</p>
-        <ul>
-          <li>Bascule automatique</li>
-          <li>Rapports mensuels</li>
-          <li>Assistance e-mail</li>
+      <nav aria-label="Navigation principale">
+        <button class="ghost menu-btn" aria-expanded="false" aria-controls="menu">☰ Menu</button>
+        <ul id="menu">
+          <li><a href="#solution">Solution</a></li>
+          <li><a href="#usecase">Hôtellerie</a></li>
+          <li><a href="#galerie">Galerie</a></li>
+          <li><a href="#prix">Tarifs</a></li>
+          <li><a href="#contact">Contact</a></li>
         </ul>
-      </article>
+      </nav>
 
-      <!-- Pro (mise en avant) -->
-      <article class="card price" style="position:relative;outline:2px solid var(--brand);box-shadow:0 10px 28px rgba(10,68,102,.15)">
-        <div class="badge" style="position:absolute;top:10px;right:10px">Recommandé</div>
-        <h3>Pro</h3>
-        <div class="tag">
-          <span class="count" data-count data-from="0" data-to="5000" data-duration="500"></span>
-          <span>€</span>
-          <span class="per"> + </span>
-          <span class="count" data-count data-from="0" data-to="100" data-duration="500"></span>
-          <span class="per">€/mois</span>
-        </div>
-        <p class="muted">Supervision avancée, alertes temps réel, multi-sites, export conformité.</p>
-        <ul>
-          <li>API & intégrations</li>
-          <li>Scénarios d’économie</li>
-          <li>Support prioritaire</li>
-        </ul>
-      </article>
+      <label class="switch" title="Basculer le thème">
+        <input id="mode" type="checkbox" aria-label="Mode sombre">
+        <span>🌙</span>
+      </label>
 
-      <!-- Sur-mesure -->
-      <article class="card price">
-        <h3>Sur-mesure</h3>
-        <div class="tag">Devis</div>
-        <p class="muted">Capacités étendues, GTB, SLA, installation clé en main Guadeloupe.</p>
-        <ul>
-          <li>Audit site & ROI</li>
-          <li>Formation équipe</li>
-          <li>Aides & financements</li>
-        </ul>
-      </article>
+      <a class="cta" href="#contact">Demander une démo</a>
     </div>
+  </header>
 
-    <p class="muted" style="margin-top:8px">Prix publics indicatifs HT — installation et transport selon site.</p>
-  </div>
-</section>
-  <!-- CTA -->
-  <section class="container cta-band" aria-labelledby="cta">
-    <h2 id="cta">Sécurisons votre approvisionnement en eau</h2>
-    <p class="muted">Nous dimensionnons la capacité, le réseau et les économies attendues.</p>
-    <p><a class="cta" href="#contact">Planifier un audit</a></p>
-  </section>
+  <!-- ===== MAIN ===== -->
+  <main id="main">
+    <!-- HERO -->
+    <section class="hero" aria-labelledby="hero-title">
+      <div class="container hero-wrap">
+        <div>
+          <span class="badge">Guadeloupe · Hôtellerie & Résidences</span>
+          <h1 id="hero-title">Une eau continue, maîtrisée et traçable. Même en cas de coupure.</h1>
+          <p class="lead">GO2INNOV combine <b>stockage</b>, <b>filtration</b> et <b>capteurs IoT</b> avec un pilotage simple pour sécuriser l’expérience client et les coûts d’exploitation.</p>
+          <div class="actions">
+            <a class="cta" href="#contact">Audit gratuit</a>
+            <a class="ghost" href="#solution">Voir la solution</a>
+          </div>
+          <div class="kpis" aria-label="Indicateurs">
+            <div class="kpi"><b>⏱ Continuité</b><br><span class="muted">Bascule auto sur réserve</span></div>
+            <div class="kpi"><b>♻︎ −30–40%</b><br><span class="muted">Eau potable économisée</span></div>
+            <div class="kpi"><b>📈 Traçabilité</b><br><span class="muted">Qualité & conso en temps réel</span></div>
+          </div>
+        </div>
 
-  <!-- CONTACT -->
-  <section id="contact" aria-labelledby="contact-title">
-    <div class="container">
-      <div class="section-head">
-        <h2 id="contact-title">Contact & démo</h2>
-        <p class="muted">Réponse sous 24 h ouvrées.</p>
+        <aside class="hero-card" aria-label="Illustration technique">
+          <figure style="margin:0;display:grid;gap:8px">
+            <img
+              src="Image/cuve realiste.png"
+              alt="Prototype GO2INNOV : cuve, filtration, capteurs et supervision"
+              loading="eager" decoding="async" />
+            <figcaption class="muted" style="font-size:14px">Prototype 3 000 L · Filtration 3 étapes · Capteurs niveau/qualité · Supervision web & mobile</figcaption>
+          </figure>
+        </aside>
+      </div>
+    </section>
+
+    <!-- SOLUTION -->
+    <section id="solution" aria-labelledby="solution-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="solution-title">La solution</h2>
+          <p class="muted">Modulaire, résistante, pensée pour les contraintes tropicales.</p>
+        </div>
+        <div class="grid-4">
+          <article class="card"><h3>Stockage sécurisé</h3><p>Cuves 3 000 L+ anti-corrosion, alimentation réseau & pluie, clapets anti-retour.</p></article>
+          <article class="card"><h3>Filtration 3 étapes</h3><p>Pré-filtration, charbon actif, UV. Qualité stable pour cuisines & buanderies.</p></article>
+          <article class="card"><h3>Capteurs & alertes</h3><p>Niveau, turbidité, pH. Alertes coupure/fuite. Historique exportable.</p></article>
+          <article class="card"><h3>Supervision connectée</h3><p>Tableau de bord web/mobile, bascule automatique, gestion multi-sites.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <!-- USE CASE -->
+    <section id="usecase" aria-labelledby="usecase-title">
+      <div class="container grid-2">
+        <div>
+          <h2 id="usecase-title">Conçu pour l’hôtellerie Guadeloupe</h2>
+          <div class="list">
+            <div class="item"><span>🏨</span><div><b>Confort client garanti</b><br>Pression stable, eau disponible en chambre, restauration, buanderie.</div></div>
+            <div class="item"><span>🧺</span><div><b>Opérations sécurisées</b><br>Plan de continuité : autonomie pendant les coupures, maintenance planifiée.</div></div>
+            <div class="item"><span>🌿</span><div><b>RSE crédible</b><br>Réemploi des eaux grises, collecte pluie, indicateurs publics.</div></div>
+            <div class="item"><span>💶</span><div><b>Coûts maîtrisés</b><br>Moins de citernes, moins d’arrêts d’activité, ROI mesurable.</div></div>
+          </div>
+        </div>
+        <aside class="card">
+          <h3>Proposition de valeur</h3>
+          <p><b>GO2INNOV</b> garantit une autonomie hydrique <b>intelligente et durable</b> pour préserver l’image, maîtriser les coûts et assurer une expérience irréprochable, même en cas de crise.</p>
+        </aside>
+      </div>
+    </section>
+
+    <!-- GALERIE PROTOTYPE -->
+    <section id="galerie" aria-labelledby="galerie-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="galerie-title">Notre prototype sur le terrain</h2>
+          <p class="muted">Local technique · Buanderie · Extérieur (pluie)</p>
+        </div>
+
+        <div class="grid-3" style="margin-top:14px">
+          <article class="card">
+            <img class="media" src="Image/cuve realiste.png" alt="GO2INNOV — vue générale du module" loading="lazy" decoding="async">
+            <p class="muted" style="margin:10px 0 0">Vue générale — Cuve 3 000 L, filtration 3 étapes, capteurs IoT.</p>
+          </article>
+
+          <article class="card">
+            <img class="media" src="Image/croquis cuve.png" alt="GO2INNOV — croquis de la cuve" loading="lazy" decoding="async">
+            <p class="muted" style="margin:10px 0 0">Croquis de la cuve GO2INNOV.</p>
+          </article>
+
+          <article class="card">
+            <img class="media" src="Image/appli.png" alt="GO2INNOV — application de supervision" loading="lazy" decoding="async">
+            <p class="muted" style="margin:10px 0 0">Application de gestion et supervision.</p>
+          </article>
+        </div>
       </div>
 
-     <form id="lead" class="card" action="https://formspree.io/f/mgvnreoq" method="POST" novalidate>
-  <div class="two">
-    <p><label for="nom">Nom *</label><br>
-      <input id="nom" name="nom" required placeholder="Nom Prénom" autocomplete="name">
-    </p>
-    <p><label for="email">Email *</label><br>
-      <input id="email" name="email" type="email" required placeholder="vous@hotel.com" autocomplete="email">
-    </p>
-  </div>
+      <!-- Lightbox global (unique) -->
+      <div id="lightbox" role="dialog" aria-modal="true" aria-label="Agrandissement d’image">
+        <button class="close" aria-label="Fermer l’agrandissement">✕</button>
+        <img src="" alt="Agrandissement">
+      </div>
+    </section>
 
-  <div class="two">
-    <p><label for="etab">Établissement</label><br>
-      <input id="etab" name="etablissement" placeholder="Hôtel, résidence…">
-    </p>
-    <p>
-      <label for="ile">Île / Dépt.</label><br>
-      <select id="ile" name="ile">
-        <option value="">Sélectionner</option>
-        <option>Guadeloupe</option><option>Martinique</option><option>Guyane</option>
-        <option>La Réunion</option><option>Mayotte</option><option>Polynésie</option>
-        <option>Nouvelle-Calédonie</option><option>Saint-Martin</option><option>Saint-Barth</option>
-      </select>
-    </p>
-  </div>
+    <!-- TARIFS -->
+    <section id="prix" aria-labelledby="pricing-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="pricing-title">Tarifs</h2>
+          <p class="muted">Matériel à l’achat + supervision au choix.</p>
+        </div>
 
-  <p><label for="message">Vos besoins</label><br>
-    <textarea id="message" name="message" rows="5" placeholder="Capacité, zones à desservir, contraintes…"></textarea>
-  </p>
+        <div class="pricing" aria-label="Offres et tarifs">
+          <!-- Essentiel -->
+          <article class="card price">
+            <h3>Essentiel</h3>
+            <div class="tag">
+              <span class="count" data-count data-from="0" data-to="5000" data-duration="500"></span>
+              <span>€</span>
+            </div>
+            <p class="muted">Cuve 3 000 L, filtration 3 étapes, capteurs, tableau de bord.</p>
+            <ul>
+              <li>Bascule automatique</li>
+              <li>Rapports mensuels</li>
+              <li>Assistance e-mail</li>
+            </ul>
+          </article>
 
-  <!-- RGPD -->
-  <p style="display:flex;align-items:center;gap:8px">
-    <input id="rgpd" type="checkbox" required>
-    <label for="rgpd">J’accepte d’être recontacté pour GO2INNOV.</label>
-  </p>
+          <!-- Pro (mise en avant) -->
+          <article class="card price" style="position:relative;outline:2px solid var(--brand);box-shadow:0 10px 28px rgba(10,68,102,.15)">
+            <div class="badge" style="position:absolute;top:10px;right:10px">Recommandé</div>
+            <h3>Pro</h3>
+            <div class="tag">
+              <span class="count" data-count data-from="0" data-to="5000" data-duration="500"></span>
+              <span>€</span>
+              <span class="per"> + </span>
+              <span class="count" data-count data-from="0" data-to="100" data-duration="500"></span>
+              <span class="per">€/mois</span>
+            </div>
+            <p class="muted">Supervision avancée, alertes temps réel, multi-sites, export conformité.</p>
+            <ul>
+              <li>API & intégrations</li>
+              <li>Scénarios d’économie</li>
+              <li>Support prioritaire</li>
+            </ul>
+          </article>
 
-  <!-- Anti-spam honeypot (optionnel) -->
-  <input type="text" name="_gotcha" style="display:none">
+          <!-- Sur-mesure -->
+          <article class="card price">
+            <h3>Sur-mesure</h3>
+            <div class="tag">Devis</div>
+            <p class="muted">Capacités étendues, GTB, SLA, installation clé en main Guadeloupe.</p>
+            <ul>
+              <li>Audit site & ROI</li>
+              <li>Formation équipe</li>
+              <li>Aides & financements</li>
+            </ul>
+          </article>
+        </div>
 
-  <!-- Sujet de l'email -->
-  <input type="hidden" name="_subject" value="Nouveau lead GO2INNOV">
+        <p class="muted" style="margin-top:8px">Prix publics indicatifs HT — installation et transport selon site.</p>
+      </div>
+    </section>
 
-  <!-- _next est remplacé dynamiquement par le script pour inclure nom/email -->
-  <p>
-    <button class="cta" type="submit">Envoyer</button>
-    <span id="status" role="status" aria-live="polite" class="muted"></span>
-  </p>
-</form>
-<footer>
-  <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
-    <div>© <span id="year"></span> GO2INNOV</div>
-    <div><a href="#prix">Tarifs</a> · <a href="#contact">Contact</a></div>
-  </div>
-</footer>
+    <!-- CTA -->
+    <section class="container cta-band" aria-labelledby="cta">
+      <h2 id="cta">Sécurisons votre approvisionnement en eau</h2>
+      <p class="muted">Nous dimensionnons la capacité, le réseau et les économies attendues.</p>
+      <p><a class="cta" href="#contact">Planifier un audit</a></p>
+    </section>
 
-<script>
-  // === utilitaires ===
-  const $ = (s, r=document) => r.querySelector(s);
-  const $$ = (s, r=document) => [...r.querySelectorAll(s)];
-  $('#year') && ($('#year').textContent = new Date().getFullYear());
+    <!-- CONTACT -->
+    <section id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-head">
+          <h2 id="contact-title">Contact & démo</h2>
+          <p class="muted">Réponse sous 24 h ouvrées.</p>
+        </div>
 
-  // === menu mobile ===
-  const header = document.querySelector('header');
-  const btn = header?.querySelector('.menu-btn');
-  btn?.addEventListener('click', () => {
-    const open = header.classList.toggle('open');
-    btn.setAttribute('aria-expanded', open ? 'true' : 'false');
-  });
+        <form id="lead" class="card" action="https://formspree.io/f/mgvnreoq" method="POST" novalidate aria-describedby="status">
+          <div class="two">
+            <p><label for="nom">Nom <span aria-hidden="true">*</span></label><br>
+              <input id="nom" name="nom" required placeholder="Nom Prénom" autocomplete="name">
+            </p>
+            <p><label for="email">Email <span aria-hidden="true">*</span></label><br>
+              <input id="email" name="email" type="email" required placeholder="vous@hotel.com" autocomplete="email">
+            </p>
+          </div>
 
-  // === thème clair/sombre ===
-  const saved = localStorage.getItem('theme');
-  const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
-  document.body.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
-  const mode = $('#mode');
-  if (mode){
-    mode.checked = document.body.getAttribute('data-theme') === 'dark';
-    mode.addEventListener('change', () => {
-      const t = mode.checked ? 'dark' : 'light';
-      document.body.setAttribute('data-theme', t);
-      localStorage.setItem('theme', t);
+          <div class="two">
+            <p><label for="etab">Établissement</label><br>
+              <input id="etab" name="etablissement" placeholder="Hôtel, résidence…">
+            </p>
+            <p>
+              <label for="ile">Île / Dépt.</label><br>
+              <select id="ile" name="ile">
+                <option value="">Sélectionner</option>
+                <option>Guadeloupe</option><option>Martinique</option><option>Guyane</option>
+                <option>La Réunion</option><option>Mayotte</option><option>Polynésie</option>
+                <option>Nouvelle-Calédonie</option><option>Saint-Martin</option><option>Saint-Barth</option>
+              </select>
+            </p>
+          </div>
+
+          <p><label for="message">Vos besoins</label><br>
+            <textarea id="message" name="message" rows="5" placeholder="Capacité, zones à desservir, contraintes…"></textarea>
+          </p>
+
+          <!-- RGPD -->
+          <p class="consent" style="display:flex;align-items:center;gap:8px">
+            <input id="rgpd" type="checkbox" required>
+            <label for="rgpd">J’accepte d’être recontacté pour GO2INNOV.</label>
+          </p>
+
+          <!-- Anti-spam honeypot -->
+          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+
+          <!-- Sujet email -->
+          <input type="hidden" name="_subject" value="Nouveau lead GO2INNOV">
+
+          <p>
+            <button class="cta" type="submit">Envoyer</button>
+            <span id="status" class="status muted" role="status" aria-live="polite"></span>
+          </p>
+
+          <!-- Zone d’alerte ARIA (assertive) -->
+          <div id="form-alert" role="alert" aria-live="assertive" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"></div>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- ===== FOOTER ===== -->
+  <footer role="contentinfo">
+    <div class="container" style="display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap">
+      <div>© <span id="year"></span> GO2INNOV</div>
+      <div><a href="#prix">Tarifs</a> · <a href="#contact">Contact</a></div>
+    </div>
+  </footer>
+
+  <!-- ===== SCRIPTS ===== -->
+  <script>
+    /* === Utilitaires === */
+    const $ = (s, r=document) => r.querySelector(s);
+    const $$ = (s, r=document) => [...r.querySelectorAll(s)];
+    $('#year') && ($('#year').textContent = new Date().getFullYear());
+
+    /* === Menu mobile === */
+    const header = document.querySelector('header');
+    const btn = header?.querySelector('.menu-btn');
+    btn?.addEventListener('click', () => {
+      const open = header.classList.toggle('open');
+      btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
-  }
 
-  // === scroll doux ===
-  $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
-    const id = a.getAttribute('href').slice(1), el = $('#'+id);
-    if (el) {
-      e.preventDefault();
-      el.scrollIntoView({behavior: 'smooth'});
-      header?.classList.remove('open');
-      btn?.setAttribute('aria-expanded', 'false');
-    }
-  }));
-
-  // === lightbox pour images ===
-  const lightbox = document.querySelector('#lightbox');
-  if (lightbox) {
-    const imgLarge = lightbox.querySelector('img');
-    const close = lightbox.querySelector('#close');
-
-    document.querySelectorAll('.media').forEach(img => {
-      img.addEventListener('click', () => {
-        imgLarge.src = img.src;
-        lightbox.style.display = 'flex';
+    /* === Thème clair/sombre === */
+    const saved = localStorage.getItem('theme');
+    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
+    document.body.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
+    const mode = $('#mode');
+    if (mode){
+      mode.checked = document.body.getAttribute('data-theme') === 'dark';
+      mode.addEventListener('change', () => {
+        const t = mode.checked ? 'dark' : 'light';
+        document.body.setAttribute('data-theme', t);
+        localStorage.setItem('theme', t);
       });
-    });
+    }
 
-    close?.addEventListener('click', () => lightbox.style.display = 'none');
-    lightbox.addEventListener('click', (e) => {
-      if (e.target === lightbox) lightbox.style.display = 'none';
-    });
-  }
+    /* === Scroll doux + fermeture menu === */
+    $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
+      const id = a.getAttribute('href').slice(1), el = $('#'+id);
+      if (el){
+        e.preventDefault();
+        el.scrollIntoView({behavior:'smooth'});
+        header?.classList.remove('open');
+        btn?.setAttribute('aria-expanded','false');
+      }
+    }));
 
-  // === animation des chiffres ===
-  (function(){
-    const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const fmt = new Intl.NumberFormat('fr-FR');
-    const ease = t => 1 - Math.pow(1 - t, 3);
+    /* === Lightbox (global, unique) === */
+    (() => {
+      const lb = $('#lightbox');
+      if (!lb) return;
+      const imgLarge = lb.querySelector('img');
+      const closeBtn = lb.querySelector('.close');
+      document.addEventListener('click', (e) => {
+        const t = e.target;
+        if (t && t.classList && t.classList.contains('media')){
+          imgLarge.src = t.getAttribute('src');
+          lb.style.display = 'flex';
+          lb.setAttribute('aria-hidden','false');
+        }
+      });
+      closeBtn?.addEventListener('click', () => {
+        lb.style.display = 'none';
+        lb.setAttribute('aria-hidden','true');
+      });
+      lb.addEventListener('click', (e) => {
+        if (e.target === lb){
+          lb.style.display = 'none';
+          lb.setAttribute('aria-hidden','true');
+        }
+      });
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && lb.style.display === 'flex'){
+          lb.style.display = 'none';
+          lb.setAttribute('aria-hidden','true');
+        }
+      });
+    })();
 
-    const animate = el => {
-      const from = +el.dataset.from || 0;
-      const to = +el.dataset.to || 0;
-      const dur = +el.dataset.duration || 1200;
-      if (reduce){ el.textContent = fmt.format(to); return; }
-      let start = null;
-      const step = ts => {
-        if (!start) start = ts;
-        const p = Math.min((ts - start)/dur, 1);
-        const val = from + (to - from) * ease(p);
-        el.textContent = fmt.format(val);
-        if (p < 1) requestAnimationFrame(step);
+    /* === Animation des chiffres (compteurs tarifs) === */
+    (function(){
+      const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const fmt = new Intl.NumberFormat('fr-FR');
+      const ease = t => 1 - Math.pow(1 - t, 3);
+      const animate = el => {
+        const from = +el.dataset.from || 0;
+        const to = +el.dataset.to || 0;
+        const dur = +el.dataset.duration || 1200;
+        if (reduce){ el.textContent = fmt.format(to); return; }
+        let start = null;
+        const step = ts => {
+          if (!start) start = ts;
+          const p = Math.min((ts - start)/dur, 1);
+          const val = from + (to - from) * ease(p);
+          el.textContent = fmt.format(val);
+          if (p < 1) requestAnimationFrame(step);
+        };
+        requestAnimationFrame(step);
       };
-      requestAnimationFrame(step);
-    };
+      const counters = document.querySelectorAll('[data-count]');
+      const io = new IntersectionObserver(entries => {
+        entries.forEach(e => {
+          if (e.isIntersecting){ animate(e.target); io.unobserve(e.target); }
+        });
+      }, {threshold:.4});
+      counters.forEach(el => io.observe(el));
+    })();
 
-    const counters = document.querySelectorAll('[data-count]');
-    const io = new IntersectionObserver(entries => {
-      entries.forEach(e => {
-        if (e.isIntersecting) { animate(e.target); io.unobserve(e.target); }
+    /* === Formulaire (validation + fetch + redirection merci) === */
+    (function(){
+      const form = $('#lead'), status = $('#status'), alertLive = $('#form-alert');
+      if (!form) return;
+
+      const setInvalid = (el, invalid=true) => { if (!el) return; el.setAttribute('aria-invalid', invalid ? 'true' : 'false'); };
+
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+        const data = Object.fromEntries(new FormData(form).entries());
+        const rgpd = $('#rgpd');
+
+        // Validation minimale
+        let ok = true;
+        if (!data.nom){ ok=false; setInvalid($('#nom'), true); }
+        if (!data.email || !/.+@.+\..+/.test(data.email)){ ok=false; setInvalid($('#email'), true); }
+        if (!rgpd?.checked){ ok=false; }
+        if (!ok){
+          const msg = 'Champs requis manquants ou invalides.';
+          status.textContent = msg; status.style.color = '#e11d48';
+          alertLive.textContent = msg;
+          return;
+        }
+        setInvalid($('#nom'), false); setInvalid($('#email'), false);
+
+        status.textContent = 'Envoi en cours…'; status.style.color = 'inherit';
+
+        try {
+          const res = await fetch(form.action, {
+            method: 'POST',
+            headers: { 'Accept': 'application/json' },
+            body: new FormData(form)
+          });
+          if (res.ok){
+            const params = new URLSearchParams({ nom: data.nom || '', email: data.email || '' });
+            window.location.href = 'merci.html?' + params.toString();
+          } else {
+            const msg = 'Erreur serveur. Réessayez plus tard.';
+            status.textContent = msg; status.style.color = '#e11d48'; alertLive.textContent = msg;
+          }
+        } catch (err){
+          const msg = 'Erreur de connexion. Vérifiez votre réseau.';
+          status.textContent = msg; status.style.color = '#e11d48'; alertLive.textContent = msg;
+        }
       });
-    }, {threshold: .4});
-    counters.forEach(el => io.observe(el));
-  })();
 
-  // === formulaire → Formspree (POST natif) + redirection merci ===
-  const form = document.getElementById('lead');
-  form?.addEventListener('submit', (e) => {
-    const f = e.currentTarget;
-    const s = document.getElementById('status');
-    const fd = new FormData(f);
-    const data = Object.fromEntries(fd.entries());
-
-    // Validation côté client
-    if (!data.nom || !data.email || !document.getElementById('rgpd')?.checked){
-      e.preventDefault();
-      s && (s.textContent = 'Champs requis manquants.', s.style.color = '#e11d48');
-      return;
-    }
-    if (!/.+@.+\..+/.test(data.email)){
-      e.preventDefault();
-      s && (s.textContent = 'Email invalide.', s.style.color = '#e11d48');
-      return;
-    }
-
-    // Message d'état
-    s && (s.textContent = 'Envoi…', s.style.color = 'inherit');
-
-    // ✅ On fixe dynamiquement la page de remerciement avec nom/email en query
-    // (Formspree redirigera vers cette URL après envoi réussi)
-    const qs = new URLSearchParams({ nom: data.nom || '', email: data.email || '' }).toString();
-    // Supprime un éventuel ancien _next
-    f.querySelector('input[name="_next"]')?.remove();
-    // Ajoute _next pour Formspree
-    const next = document.createElement('input');
-    next.type = 'hidden';
-    next.name = '_next';
-    next.value = (location.origin + location.pathname).replace(/index\.html?$/,'') + 'merci.html?' + qs;
-    f.appendChild(next);
-
-    // IMPORTANT :
-    // - on NE bloque PAS la soumission (pas de preventDefault)
-    // - Formspree reçoit la requête POST et redirige vers _next
-  });
-document.getElementById('lead').addEventListener('submit', async function(e) {
-  e.preventDefault();
-  const form = e.currentTarget;
-  const s = document.getElementById('status');
-
-  const data = Object.fromEntries(new FormData(form).entries());
-  if (!data.nom || !data.email || !document.getElementById('rgpd').checked) {
-    s.textContent = 'Champs requis manquants.';
-    s.style.color = '#e11d48';
-    return;
-  }
-  if (!/.+@.+\..+/.test(data.email)) {
-    s.textContent = 'Email invalide.';
-    s.style.color = '#e11d48';
-    return;
-  }
-
-  s.textContent = 'Envoi en cours…';
-  s.style.color = 'inherit';
-
-  try {
-    const res = await fetch(form.action, {
-      method: 'POST',
-      headers: { 'Accept': 'application/json' },
-      body: new FormData(form)
-    });
-
-    if (res.ok) {
-      const params = new URLSearchParams({
-        nom: data.nom,
-        email: data.email
+      ['nom','email'].forEach(id=>{
+        const el = $('#'+id);
+        el && el.addEventListener('input', ()=> setInvalid(el, false));
       });
-      window.location.href = 'merci.html?' + params.toString();
-    } else {
-      s.textContent = 'Erreur serveur. Réessayez plus tard.';
-      s.style.color = '#e11d48';
-    }
-  } catch (err) {
-    s.textContent = 'Erreur de connexion. Vérifiez votre réseau.';
-    s.style.color = '#e11d48';
-  }
-});
-</script>
+    })();
+  </script>
 </body>
 </html>
