@@ -1,129 +1,141 @@
 <!doctype html>
 <html lang="fr">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Merci — GO2INNOV</title>
-<meta name="robots" content="noindex">
-<meta name="description" content="Merci ! Votre demande a bien été transmise. La solution GO2INNOV arrive très vite.">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Merci — GO2INNOV</title>
+  <meta name="robots" content="noindex">
+  <meta name="description" content="Merci ! Votre demande a bien été transmise. La solution GO2INNOV arrive très vite.">
+  <meta name="color-scheme" content="light dark">
+  <meta name="theme-color" content="#0a4466">
 
-<style>
-/* ====== Design system sobre & compatible (identique à index) ====== */
-:root{
-  --bg:#f5f7fb; --ink:#0f172a; --muted:#4b5563;
-  --brand:#0a4466; --brand-2:#136e99; --accent:#ffd166;
-  --panel:#ffffff; --panel-2:#eef2f7; --bd:#d9dee7;
-  --radius:18px; --shadow:0 8px 24px rgba(15,23,42,.08);
-}
-[data-theme="dark"]{
-  --bg:#0f1422; --ink:#e9edf5; --muted:#c8d0dc;
-  --panel:#111a2b; --panel-2:#0f1828; --bd:#1f2a3a;
-  --shadow:0 10px 28px rgba(0,0,0,.35);
-}
-*{box-sizing:border-box}
-html,body{height:100%}
-body{
-  margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial;
-  color:var(--ink);
-  background:
-    radial-gradient(900px 600px at 15% -10%, rgba(19,110,153,.10), transparent 60%),
-    radial-gradient(900px 600px at 85% -20%, rgba(10,68,102,.10), transparent 60%),
-    var(--bg);
-  line-height:1.6;
-}
-img{max-width:100%; display:block}
-a{color:inherit; text-decoration:none}
-.container{width:min(1200px, 100% - 48px); margin-inline:auto}
+  <style>
+    /* ===== Esthétique V2X : auto dark bleu / light blanc ===== */
+    :root{
+      --brand:#0a4466; --brand-2:#136e99; --accent:#ffd166;
+      --radius:20px; --shadow:0 20px 60px rgba(0,0,0,.35);
+      --gap:clamp(16px,2.2vw,28px); --pad:clamp(18px,2.6vw,34px);
+      --container-w:1200px; --focus: rgba(56,189,248,.22);
 
-/* ===== Header (même que index) ===== */
-header{
-  position:sticky; top:0; z-index:50;
-  background:var(--panel); border-bottom:1px solid var(--bd);
-}
-.nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0}
-.brand{display:flex; align-items:center; gap:10px; font-weight:800}
-.brand .logo{
-  width:34px; aspect-ratio:1; border-radius:10px; display:grid; place-items:center;
-  background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; box-shadow:var(--shadow)
-}
-.nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
-.nav a:hover{opacity:.85}
-.menu-btn{display:none}
-.ghost{padding:9px 14px; border:1px solid var(--bd); border-radius:10px; background:var(--panel)}
-.cta{display:inline-grid; place-items:center; padding:10px 16px; border-radius:12px; background:var(--brand); color:#fff; font-weight:700; box-shadow:var(--shadow)}
-.switch{display:inline-flex; align-items:center; gap:8px}
-@media (max-width:860px){
-  .nav ul{display:none}
-  .menu-btn{display:inline-flex; gap:8px; align-items:center}
-  header.open ul{
-    display:grid; gap:10px; position:absolute; left:0; right:0; top:60px;
-    background:var(--panel); border-bottom:1px solid var(--bd); padding:14px;
-  }
-}
+      /* Dark par défaut */
+      --bg:#0a1530; --ink:#eaf2ff; --muted:#b7c6e0;
+      --panel:rgba(255,255,255,.06); --bd:rgba(255,255,255,.14);
+    }
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#ffffff; --ink:#0e1116; --muted:#6b7280;
+        --panel:rgba(0,0,0,.03); --bd:rgba(0,0,0,.12);
+        --shadow:0 12px 40px rgba(0,0,0,.10);
+      }
+    }
 
-/* ===== Hero remerciement ===== */
-.hero{background:linear-gradient(180deg,var(--panel),var(--panel-2)); border-bottom:1px solid var(--bd)}
-.hero-wrap{display:grid; grid-template-columns:1fr; gap:12px; align-items:center; padding:clamp(48px,6vw,84px) 0}
-h1{font-size:clamp(26px,3.2vw,40px); line-height:1.15; margin:.2em 0}
-.lead{color:var(--muted); font-size:clamp(16px,1.2vw,18px); margin:0}
-.badge{
-  display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
-  background:var(--accent); color:#1b2838; padding:6px 10px; border-radius:999px; width:max-content; margin-bottom:8px;
-}
-.row{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    html{scroll-behavior:smooth}
+    body{
+      margin:0; font-family:system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+      color:var(--ink);
+      background:
+        radial-gradient(1100px 720px at 80% -10%, rgba(22,91,171,.18), transparent 60%),
+        radial-gradient(900px 600px at 12% -20%, rgba(10,68,102,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, color-mix(in oklab, var(--bg) 90%, #0e2a4d 10%) 36%, var(--bg) 100%),
+        repeating-linear-gradient(45deg, rgba(255,255,255,.012) 0 2px, transparent 2px 6px),
+        repeating-linear-gradient(-45deg, rgba(0,0,0,.015) 0 3px, transparent 3px 7px);
+      background-blend-mode: screen,screen,normal,overlay,overlay;
+      -webkit-font-smoothing:antialiased; text-rendering:optimizeLegibility;
+    }
+    @media (prefers-color-scheme: light){
+      body{
+        background:
+          radial-gradient(1100px 720px at 80% -10%, rgba(0,0,0,.035), transparent 60%),
+          radial-gradient(900px 600px at 12% -20%, rgba(0,0,0,.04), transparent 60%),
+          linear-gradient(180deg, #ffffff 0%, #f4f6f9 40%, #eef2f7 100%),
+          repeating-linear-gradient(45deg, rgba(0,0,0,.015) 0 2px, transparent 2px 6px),
+          repeating-linear-gradient(-45deg, rgba(0,0,0,.012) 0 3px, transparent 3px 7px);
+        background-blend-mode: multiply,multiply,normal,overlay,overlay;
+      }
+    }
 
-/* ===== Gallery + cartes ===== */
-section{padding:clamp(36px,4.5vw,64px) 0}
-.grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
-@media (max-width:1000px){ .grid-3{grid-template-columns:repeat(2,1fr)} }
-@media (max-width:600px){ .grid-3{grid-template-columns:1fr} }
-.card{background:var(--panel); border:1px solid var(--bd); border-radius:16px; box-shadow:var(--shadow); overflow:hidden}
-.card .media{width:100%; height:220px; object-fit:cover}
-.card .body{padding:12px 14px}
-.muted{color:var(--muted)}
+    img{max-width:100%; display:block; height:auto}
+    a{color:inherit; text-decoration:none; transition:opacity .2s ease, color .2s ease}
+    a:hover{opacity:.9; color:var(--brand-2)}
+    .container{width:min(var(--container-w),100% - 56px); margin-inline:auto}
+    .section{padding:clamp(42px,6vw,96px) 0}
 
-/* ===== CTA bande ===== */
-.cta-band{
-  text-align:center; padding:26px; border-radius:18px; border:1px solid var(--bd);
-  background:linear-gradient(180deg,var(--panel),var(--panel-2)); box-shadow:var(--shadow)
-}
+    /* ===== Header translucide ===== */
+    header{
+      position:sticky; top:0; z-index:50;
+      backdrop-filter:saturate(140%) blur(12px);
+      background:rgba(12,18,36,.55);
+      border-bottom:1px solid var(--bd);
+    }
+    @media (prefers-color-scheme: light){ header{ background:rgba(255,255,255,.75) } }
+    .nav{display:flex; align-items:center; justify-content:space-between; gap:12px; padding:12px 0}
+    .brand{display:flex; align-items:center; gap:10px; font-weight:800}
+    .brand .logo{
+      width:34px; aspect-ratio:1; border-radius:10px; display:grid; place-items:center;
+      background:linear-gradient(135deg,var(--brand),var(--brand-2)); color:#fff; box-shadow:var(--shadow)
+    }
+    nav ul{display:flex; gap:18px; list-style:none; padding:0; margin:0}
+    .menu-btn{display:none}
+    .ghost{padding:9px 14px; border:1px solid var(--bd); border-radius:10px; background:rgba(255,255,255,.04)}
+    .cta{display:inline-grid; place-items:center; padding:10px 16px; border-radius:14px; background:#fff; color:#111; font-weight:800; box-shadow:0 10px 32px rgba(255,255,255,.12)}
+    .cta:hover{ background:var(--brand); color:#fff }
+    @media (prefers-color-scheme: light){ .cta{ background:var(--brand); color:#fff } .cta:hover{ filter:brightness(1.05) } }
+    @media (max-width:860px){
+      nav ul{display:none}
+      .menu-btn{display:inline-flex; gap:8px; align-items:center}
+      header.open ul{
+        display:grid; gap:10px; position:absolute; left:0; right:0; top:60px;
+        background:rgba(12,18,36,.82); border-bottom:1px solid var(--bd); padding:14px; backdrop-filter:blur(10px)
+      }
+      @media (prefers-color-scheme: light){ header.open ul{ background:rgba(255,255,255,.92) } }
+    }
 
-/* ===== Footer ===== */
-footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
-/* Fond sombre plein écran */
-#lightbox {
-    position: fixed;
-    inset: 0;
-    background: rgba(0,0,0,0.8);
-    display: none;
-    align-items: center;
-    justify-content: center;
-    z-index: 9999;
-  }
-  #lightbox img {
-    max-width: 90%;
-    max-height: 90%;
-    border-radius: 10px;
-    box-shadow: 0 10px 40px rgba(0,0,0,0.6);
-    animation: zoomIn .25s ease;
-  }
-  @keyframes zoomIn {
-    from { transform: scale(.9); opacity: 0; }
-    to { transform: scale(1); opacity: 1; }
-  }
-  #lightbox:target { display: flex; }
-  #lightbox span {
-    position: absolute;
-    top: 2%;
-    right: 2%;
-    font-size: 32px;
-    color: white;
-    cursor: pointer;
-  }
-</style>
+    /* ===== Hero merci ===== */
+    .hero{background:linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.03)); border-bottom:1px solid var(--bd)}
+    @media (prefers-color-scheme: light){
+      .hero{ background:linear-gradient(180deg, var(--panel), #f6f8fb); }
+    }
+    .hero-wrap{display:grid; grid-template-columns:1fr; gap:12px; align-items:center; padding:clamp(48px,6vw,84px) 0}
+    h1{font-size:clamp(26px,3.2vw,40px); line-height:1.15; margin:.2em 0}
+    .lead{color:var(--muted); font-size:clamp(16px,1.2vw,18px); margin:0}
+    .badge{
+      display:inline-flex; align-items:center; gap:8px; font-weight:700; font-size:12px; letter-spacing:.08em; text-transform:uppercase;
+      background:var(--accent); color:#1b2838; padding:6px 10px; border-radius:999px; width:max-content; margin-bottom:8px;
+    }
+    .row{display:flex; gap:10px; flex-wrap:wrap; margin-top:14px}
+
+    /* ===== Cartes & galerie ===== */
+    section{padding:clamp(36px,4.5vw,64px) 0}
+    .grid-3{display:grid; grid-template-columns:repeat(3,1fr); gap:14px}
+    @media (max-width:1000px){ .grid-3{grid-template-columns:repeat(2,1fr)} }
+    @media (max-width:600px){ .grid-3{grid-template-columns:1fr} }
+    .card{background:var(--panel); border:1px solid var(--bd); border-radius:16px; box-shadow:var(--shadow); overflow:hidden}
+    .card .media{width:100%; height:220px; object-fit:cover}
+    .card .body{padding:12px 14px}
+    .muted{color:var(--muted)}
+
+    /* ===== CTA bande ===== */
+    .cta-band{
+      text-align:center; padding:26px; border-radius:18px; border:1px solid var(--bd);
+      background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03)); box-shadow:var(--shadow)
+    }
+    @media (prefers-color-scheme: light){
+      .cta-band{ background:linear-gradient(180deg, var(--panel), #f6f8fb) }
+    }
+
+    /* ===== Footer ===== */
+    footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
+
+    /* ===== Lightbox global ===== */
+    #lightbox{position:fixed; inset:0; background:rgba(0,0,0,.8); display:none; align-items:center; justify-content:center; z-index:9999}
+    #lightbox img{max-width:90%; max-height:90%; border-radius:10px; box-shadow:0 10px 40px rgba(0,0,0,.6); animation:zoomIn .25s ease}
+    #lightbox .close{position:absolute; top:2%; right:2%; font-size:32px; color:#fff; cursor:pointer}
+    @keyframes zoomIn{ from{transform:scale(.92); opacity:0} to{transform:scale(1); opacity:1} }
+  </style>
 </head>
-<body data-theme="light">
-
+<body>
 <header>
   <div class="container nav">
     <a class="brand" href="index.html" aria-label="Retour à l’accueil GO2INNOV">
@@ -139,11 +151,6 @@ footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
         <li><a href="index.html#contact">Contact</a></li>
       </ul>
     </nav>
-
-    <label class="switch" title="Basculer le thème">
-      <input id="mode" type="checkbox" aria-label="Mode sombre">
-      <span>🌙</span>
-    </label>
 
     <a class="cta" href="index.html#contact">Retour au contact</a>
   </div>
@@ -165,7 +172,7 @@ footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
     </div>
   </section>
 
-  <!-- GALERIE PROTOTYPE -->
+  <!-- GALERIE -->
   <section aria-labelledby="galerie">
     <div class="container">
       <div class="row" style="justify-content:space-between;align-items:flex-end">
@@ -177,28 +184,16 @@ footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
         <article class="card">
           <img class="media" src="Image/cuve realiste.png" alt="GO2INNOV — vue générale du module">
           <div class="body"><p class="muted">Vue générale — Cuve 3 000 L, filtration 3 étapes, capteurs IoT.</p></div>
-          <div id="lightbox">
-            <span id="close">✕</span>
-            <img src="" alt="Agrandissement">
-          </div>
         </article>
 
         <article class="card">
-          <img class="media" src="Image/croquis cuve.png" alt="GO2INNOV — détail bloc de filtration">
-          <div class="body"><p class="muted">croquis de la cuve GO2INNOV</p></div>
-          <div id="lightbox">
-            <span id="close">✕</span>
-            <img src="" alt="Agrandissement">
-          </div>
+          <img class="media" src="Image/croquis cuve.png" alt="GO2INNOV — croquis de la cuve">
+          <div class="body"><p class="muted">Croquis de la cuve GO2INNOV.</p></div>
         </article>
 
         <article class="card">
-          <img class="media" src="Image/appli.png" alt="GO2INNOV — récupération d’eau de pluie">
-          <div class="body"><p class="muted">application de gestion</p></div>
-          <div id="lightbox">
-            <span id="close">✕</span>
-            <img src="" alt="Agrandissement">
-          </div>
+          <img class="media" src="Image/appli.png" alt="GO2INNOV — application de supervision">
+          <div class="body"><p class="muted">Application de gestion.</p></div>
         </article>
       </div>
     </div>
@@ -219,23 +214,24 @@ footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
   </div>
 </footer>
 
+<!-- Lightbox global (unique) -->
+<div id="lightbox" role="dialog" aria-modal="true" aria-label="Agrandissement d’image" aria-hidden="true">
+  <button class="close" aria-label="Fermer l’agrandissement">✕</button>
+  <img src="" alt="Agrandissement">
+</div>
+
 <script>
   // util
   const $=(s,r=document)=>r.querySelector(s);
+  const $$=(s,r=document)=>[...r.querySelectorAll(s)];
   $('#year').textContent=new Date().getFullYear();
 
-  // thème (identique index)
-  const saved=localStorage.getItem('theme');
-  const prefersDark=matchMedia('(prefers-color-scheme: dark)').matches;
-  document.body.setAttribute('data-theme', saved || (prefersDark?'dark':'light'));
-  const mode=$('#mode'); mode.checked=document.body.getAttribute('data-theme')==='dark';
-  mode.addEventListener('change',()=>{ const t=mode.checked?'dark':'light'; document.body.setAttribute('data-theme',t); localStorage.setItem('theme',t); });
-
-  // menu mobile (si tu ajoutes le bouton plus tard)
-  const header=document.querySelector('header'); const btn=header.querySelector('.menu-btn');
+  // menu mobile
+  const header=document.querySelector('header');
+  const btn=header.querySelector('.menu-btn');
   btn?.addEventListener('click',()=>{ const open=header.classList.toggle('open'); btn.setAttribute('aria-expanded', open?'true':'false'); });
 
-  // personnalisation à partir de la query string
+  // personnalisation depuis la query string
   const qs=new URLSearchParams(location.search);
   const nom=(qs.get('nom')||'').trim();
   const email=(qs.get('email')||'').trim();
@@ -246,21 +242,25 @@ footer{border-top:1px solid var(--bd); color:var(--muted); padding:26px 0}
   if(email){
     $('#recap').textContent=`Nous confirmons vos informations (${email}) et revenons avec un créneau d’audit.`;
   }
-  const lightbox = document.querySelector('#lightbox');
-  const imgLarge = lightbox.querySelector('img');
-  const close = lightbox.querySelector('#close');
 
-  document.querySelectorAll('.media').forEach(img => {
-    img.addEventListener('click', () => {
-      imgLarge.src = img.src;
-      lightbox.style.display = 'flex';
+  // Lightbox unique
+  (function(){
+    const lb = $('#lightbox'); if(!lb) return;
+    const imgLarge = lb.querySelector('img');
+    const closeBtn = lb.querySelector('.close');
+
+    document.addEventListener('click',(e)=>{
+      const t = e.target;
+      if(t && t.classList && t.classList.contains('media')){
+        imgLarge.src = t.getAttribute('src');
+        lb.style.display='flex';
+        lb.setAttribute('aria-hidden','false');
+      }
     });
-  });
-
-  close.addEventListener('click', () => lightbox.style.display = 'none');
-  lightbox.addEventListener('click', (e) => {
-    if (e.target === lightbox) lightbox.style.display = 'none';
-  });
+    closeBtn?.addEventListener('click',()=>{ lb.style.display='none'; lb.setAttribute('aria-hidden','true'); });
+    lb.addEventListener('click',(e)=>{ if(e.target===lb){ lb.style.display='none'; lb.setAttribute('aria-hidden','true'); }});
+    document.addEventListener('keydown',(e)=>{ if(e.key==='Escape' && lb.style.display==='flex'){ lb.style.display='none'; lb.setAttribute('aria-hidden','true'); }});
+  })();
 </script>
 </body>
 </html>
