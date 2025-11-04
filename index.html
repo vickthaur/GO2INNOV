@@ -238,6 +238,110 @@
     .input-wrap input{padding-left:42px}
     .field[data-state="valid"] input{border-color:rgba(22,163,74,.6)}
     .field[data-state="error"] input{border-color:rgba(239,68,68,.8)}
+    /* ===== Form layout aligné (labels à gauche / champs à droite) ===== */
+#lead.form { padding: var(--pad); }
+#lead.form .row{
+  display:grid;
+  grid-template-columns: 220px 1fr;
+  gap:14px;
+  align-items:center;
+  margin:10px 0;
+}
+#lead.form .lbl{
+  font-weight:700;
+  letter-spacing:.01em;
+  color:var(--ink);
+}
+#lead.form .lbl .req{ color:#ef4444; margin-left:4px; font-weight:800 }
+#lead.form .control{ min-width:0 } /* évite les débordements */
+
+@media (max-width:900px){
+  #lead.form .row{ grid-template-columns:1fr; align-items:start }
+  #lead.form .lbl{ margin-bottom:6px }
+}
+
+/* Harmonisation inputs/selects/textarea */
+#lead.form input, #lead.form select, #lead.form textarea{
+  width:100%; padding:12px 14px;
+  border-radius:12px; border:1px solid var(--bd);
+  background:rgba(255,255,255,.06); color:var(--ink);
+}
+#lead.form input:focus, #lead.form select:focus, #lead.form textarea:focus{
+  outline:none; box-shadow:0 0 0 4px var(--focus); border-color:transparent;
+}
+
+/* Supprime l’apparence des flèches nombre (WebKit) */
+#lead.form input[type="number"]::-webkit-outer-spin-button,
+#lead.form input[type="number"]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0 }
+#lead.form input[type="number"]{ -moz-appearance:textfield }
+
+/* Champs avec icône (garde ton système) */
+#lead.form .field{ display:block }
+#lead.form .input-wrap{ position:relative }
+#lead.form .input-wrap .icon{
+  position:absolute; left:12px; top:50%; transform:translateY(-50%);
+  opacity:.75; width:20px; height:20px; display:grid; place-items:center; pointer-events:none;
+}
+#lead.form .input-wrap input,
+#lead.form .input-wrap select,
+#lead.form .input-wrap textarea{ padding-left:42px }
+#lead.form .input-wrap .state{
+  position:absolute; right:12px; top:50%; transform:translateY(-50%); width:18px; height:18px; display:none;
+}
+#lead.form .field[data-state="valid"] .state.valid{ display:block; color:#16a34a }
+#lead.form .field[data-state="error"] .state.error{ display:block; color:#ef4444 }
+#lead.form .hint{ color:var(--muted); margin-top:6px; display:block; font-size:.92rem }
+#lead.form .error{ color:#ef4444; margin-top:6px; display:none; font-size:.92rem }
+#lead.form .field[data-state="error"] .error{ display:block }
+#lead.form .field[data-state="error"] .hint{ display:none }
+
+/* Fieldset (groupes) */
+#lead.form fieldset{
+  border:1px solid var(--bd);
+  border-radius:14px;
+  padding:16px;
+  background:var(--panel);
+  backdrop-filter:blur(8px);
+}
+#lead.form legend{ padding:0 6px; font-weight:800; letter-spacing:.01em }
+
+/* Chips (checkbox) retravaillées */
+.choices{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:10px }
+.choice{ position:relative; display:block }
+.choice input{ position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer }
+.choice span{
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px; border:1px solid var(--bd);
+  border-radius:12px; background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+  color:var(--ink); box-shadow:var(--shadow);
+  transition:transform .06s ease, border-color .2s ease, background .2s ease;
+}
+.choice .ico{
+  width:30px; height:30px; border-radius:10px;
+  display:grid; place-items:center;
+  background:rgba(255,255,255,.08); border:1px solid var(--bd);
+  font-size:17px;
+}
+.choice .tick{ margin-left:auto; width:18px; height:18px; opacity:0; transform:scale(.85); transition:opacity .18s ease, transform .18s ease }
+.choice input:not(:checked) + span:hover{ border-color:rgba(255,255,255,.26); transform:translateY(-1px) }
+@media (prefers-color-scheme: light){ .choice input:not(:checked) + span:hover{ border-color:rgba(0,0,0,.18) } }
+.choice input:checked + span{
+  border-color: color-mix(in oklab, var(--brand) 70%, white 30%);
+  background:linear-gradient(180deg, rgba(10,68,102,.14), rgba(255,255,255,.055));
+}
+@media (prefers-color-scheme: light){
+  .choice input:checked + span{
+    border-color: color-mix(in oklab, var(--brand) 60%, white 40%);
+    background:linear-gradient(180deg, rgba(10,68,102,.08), rgba(0,0,0,.02));
+  }
+}
+.choice input:focus-visible + span{ outline:none; box-shadow:0 0 0 4px var(--focus) }
+.choice input:checked + span .tick{ opacity:1; transform:scale(1) }
+
+/* Radios proprettes */
+.radio-list{ display:flex; gap:18px; align-items:center; flex-wrap:wrap }
+.radio-list label{ display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border:1px solid var(--bd); border-radius:999px; background:var(--panel) }
+.radio-list input{ transform:scale(1.1) }
   </style>
 </head>
 
@@ -424,221 +528,248 @@
       <p class="reveal"><a class="cta" href="#contact">Planifier un audit</a></p>
     </section>
 
-    <!-- CONTACT (Questionnaire amélioré) -->
-    <section id="contact" class="section" aria-labelledby="contact-title">
-      <div class="container">
-        <div class="section-head reveal">
-          <h2 id="contact-title">Contact & questionnaire de cadrage</h2>
-          <p class="muted">Réponse sous 24 h ouvrées. Les champs marqués d’un * sont requis.</p>
+   <section id="contact" class="section" aria-labelledby="contact-title">
+  <div class="container">
+    <div class="section-head reveal">
+      <h2 id="contact-title">Contact & questionnaire de cadrage</h2>
+      <p class="muted">Réponse sous 24 h ouvrées. Les champs marqués d’un <b>*</b> sont requis.</p>
+    </div>
+
+    <form id="lead" class="card form reveal" action="https://formspree.io/f/mgvnreoq" method="POST" novalidate aria-describedby="status">
+      <!-- Nom -->
+      <div class="row">
+        <label class="lbl" for="nom">Nom <span class="req">*</span></label>
+        <div class="control field" id="field-nom" data-state="">
+          <div class="input-wrap">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="7" r="4"></circle><path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path>
+              </svg>
+            </span>
+            <input id="nom" name="nom" required placeholder="Nom Prénom" autocomplete="name" aria-describedby="nom-hint nom-err" aria-invalid="false">
+            <span class="state valid" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="state error" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
+          </div>
+          <small id="nom-hint" class="hint">Vos nom et prénom.</small>
+          <small id="nom-err" class="error">Nom requis.</small>
         </div>
+      </div>
 
-        <form id="lead" class="card reveal" action="https://formspree.io/f/mgvnreoq" method="POST" novalidate aria-describedby="status">
-          <!-- Identité -->
-          <div class="two">
-            <p class="field" id="field-nom" data-state="">
-              <label for="nom">Nom *</label>
-              <div class="input-wrap">
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="12" cy="7" r="4"></circle>
-                    <path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path>
-                  </svg>
-                </span>
-                <input id="nom" name="nom" required placeholder="Nom Prénom" autocomplete="name" aria-describedby="nom-hint nom-err" aria-invalid="false">
-                <span class="state valid" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                </span>
-                <span class="state error" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                </span>
-              </div>
-              <small id="nom-hint" class="hint">Votre nom et prénom.</small>
-              <small id="nom-err" class="error">Nom requis.</small>
-            </p>
-
-            <!-- Email -->
-            <p class="field" id="field-email" data-state="">
-              <label for="email">Email *</label>
-              <div class="input-wrap">
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/>
-                  </svg>
-                </span>
-                <input id="email" name="email" type="email" required placeholder="vous@hotel.com"
-                       autocomplete="email" inputmode="email" aria-describedby="email-hint email-err" aria-invalid="false">
-                <span class="state valid" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                </span>
-                <span class="state error" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                </span>
-              </div>
-              <small id="email-hint" class="hint">Nous ne partagerons jamais votre email.</small>
-              <small id="email-err" class="error">Adresse email invalide.</small>
-            </p>
+      <!-- Email -->
+      <div class="row">
+        <label class="lbl" for="email">Email <span class="req">*</span></label>
+        <div class="control field" id="field-email" data-state="">
+          <div class="input-wrap">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/>
+              </svg>
+            </span>
+            <input id="email" name="email" type="email" required placeholder="vous@hotel.com"
+                   autocomplete="email" inputmode="email" aria-describedby="email-hint email-err" aria-invalid="false">
+            <span class="state valid" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="state error" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
           </div>
+          <small id="email-hint" class="hint">Nous ne partagerons jamais votre email.</small>
+          <small id="email-err" class="error">Adresse email invalide.</small>
+        </div>
+      </div>
 
-          <div class="two">
-            <p class="field" id="field-etab" data-state="">
-              <label for="etab">Établissement</label>
-              <div class="input-wrap">
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M3 21V7l9-4 9 4v14H3z"/><path d="M9 22V12h6v10"/>
-                  </svg>
-                </span>
-                <input id="etab" name="etablissement" placeholder="Hôtel / Résidence / Groupe" autocomplete="organization" aria-invalid="false">
-              </div>
-              <small class="hint">Optionnel.</small>
-            </p>
-
-            <!-- Téléphone -->
-            <p class="field" id="field-tel" data-state="">
-              <label for="tel">Téléphone</label>
-              <div class="input-wrap">
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.1 5.18 2 2 0 0 1 5.11 3h3a2 2 0 0 1 2 1.72c.12.9.31 1.77.57 2.6a2 2 0 0 1-.45 2.11L9.1 10.9a16 16 0 0 0 4 4l1.47-1.13a2 2 0 0 1 2.11-.45c.83.26 1.7.45 2.6.57A2 2 0 0 1 22 16.92z"/>
-                  </svg>
-                </span>
-                <input id="tel" name="telephone" type="tel"
-                       placeholder="+590 690 12 34 56 ou 06 12 34 56 78"
-                       autocomplete="tel" inputmode="tel" pattern="[\d\s()+\-\.]{6,}" aria-describedby="tel-hint tel-err" aria-invalid="false">
-                <span class="state valid" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-                </span>
-                <span class="state error" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-                </span>
-              </div>
-              <small id="tel-hint" class="hint">Optionnel. Format FR ou international accepté.</small>
-              <small id="tel-err" class="error">Numéro invalide (9 à 15 chiffres).</small>
-            </p>
+      <!-- Établissement -->
+      <div class="row">
+        <label class="lbl" for="etab">Établissement</label>
+        <div class="control field" id="field-etab" data-state="">
+          <div class="input-wrap">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M3 21V7l9-4 9 4v14H3z"/><path d="M9 22V12h6v10"/>
+              </svg>
+            </span>
+            <input id="etab" name="etablissement" placeholder="Hôtel / Résidence / Groupe" autocomplete="organization" aria-invalid="false">
           </div>
+          <small class="hint">Optionnel.</small>
+        </div>
+      </div>
 
-          <div class="two">
-            <p class="field" id="field-ile" data-state="">
-              <label for="ile">Île / Département *</label>
-              <div class="input-wrap">
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
-                  </svg>
-                </span>
-                <select id="ile" name="ile" required aria-invalid="false">
-                  <option value="">Sélectionner</option>
-                  <option>Guadeloupe</option><option>Martinique</option><option>Guyane</option>
-                  <option>La Réunion</option><option>Mayotte</option><option>Polynésie</option>
-                  <option>Nouvelle-Calédonie</option><option>Saint-Martin</option><option>Saint-Barth</option>
-                </select>
-              </div>
-              <small class="hint">Zone de déploiement principale.</small>
-              <small class="error">Sélection requise.</small>
-            </p>
-
-            <p class="field" id="field-capacite" data-state="">
-              <label for="capacite">Capacité de stockage visée (m³)</label>
-              <div class="input-wrap">
-                <span class="icon" aria-hidden="true">
-                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                    <path d="M4 7h16v10H4z"/><path d="M4 11h16"/>
-                  </svg>
-                </span>
-                <input id="capacite" name="capacite_m3" type="number" min="1" step="0.1" placeholder="ex. 3">
-              </div>
-              <small class="hint">Optionnel.</small>
-            </p>
+      <!-- Téléphone -->
+      <div class="row">
+        <label class="lbl" for="tel">Téléphone</label>
+        <div class="control field" id="field-tel" data-state="">
+          <div class="input-wrap">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M22 16.92v3a2 2 0 0 1-2.18 2A19.8 19.8 0 0 1 3.1 5.18 2 2 0 0 1 5.11 3h3a2 2 0 0 1 2 1.72c.12.9.31 1.77.57 2.6a2 2 0 0 1-.45 2.11L9.1 10.9a16 16 0 0 0 4 4l1.47-1.13a2 2 0 0 1 2.11-.45c.83.26 1.7.45 2.6.57A2 2 0 0 1 22 16.92z"/>
+              </svg>
+            </span>
+            <input id="tel" name="telephone" type="tel"
+                   placeholder="+590 690 12 34 56 ou 06 12 34 56 78"
+                   autocomplete="tel" inputmode="tel" pattern="[\d\s()+\-\.]{6,}" aria-describedby="tel-hint tel-err" aria-invalid="false">
+            <span class="state valid" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+            </span>
+            <span class="state error" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+            </span>
           </div>
+          <small id="tel-hint" class="hint">Optionnel. Format FR ou international accepté.</small>
+          <small id="tel-err" class="error">Numéro invalide (9 à 15 chiffres).</small>
+        </div>
+      </div>
 
-          <!-- Zones à desservir (chips) -->
-          <fieldset style="border:1px solid var(--bd); border-radius:12px; padding:12px">
-            <legend><b>Zones à desservir</b></legend>
-            <p class="muted" id="zones-hint">Sélectionnez une ou plusieurs zones.</p>
+      <!-- Île / Département -->
+      <div class="row">
+        <label class="lbl" for="ile">Île / Département <span class="req">*</span></label>
+        <div class="control field" id="field-ile" data-state="">
+          <div class="input-wrap">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M21 10c0 7-9 12-9 12S3 17 3 10a9 9 0 1 1 18 0z"/><circle cx="12" cy="10" r="3"/>
+              </svg>
+            </span>
+            <select id="ile" name="ile" required aria-invalid="false">
+              <option value="">Sélectionner</option>
+              <option>Guadeloupe</option><option>Martinique</option><option>Guyane</option>
+              <option>La Réunion</option><option>Mayotte</option><option>Polynésie</option>
+              <option>Nouvelle-Calédonie</option><option>Saint-Martin</option><option>Saint-Barth</option>
+            </select>
+          </div>
+          <small class="hint">Zone de déploiement principale.</small>
+          <small class="error">Sélection requise.</small>
+        </div>
+      </div>
+
+      <!-- Capacité -->
+      <div class="row">
+        <label class="lbl" for="capacite">Capacité de stockage visée (m³)</label>
+        <div class="control field" id="field-capacite" data-state="">
+          <div class="input-wrap">
+            <span class="icon" aria-hidden="true">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 7h16v10H4z"/><path d="M4 11h16"/>
+              </svg>
+            </span>
+            <input id="capacite" name="capacite_m3" type="number" min="1" step="0.1" placeholder="ex. 3">
+          </div>
+          <small class="hint">Optionnel.</small>
+        </div>
+      </div>
+
+      <!-- Zones -->
+      <div class="row" style="align-items:start">
+        <span class="lbl">Zones à desservir</span>
+        <div class="control">
+          <fieldset>
+            <legend>Zones</legend>
+            <p class="muted" id="zones-hint" style="margin:.2rem 0 .6rem">Sélectionnez une ou plusieurs zones.</p>
             <div class="choices" role="group" aria-describedby="zones-hint">
               <label class="choice">
                 <input type="checkbox" name="zones[]" value="Chambres">
-                <span>
-                  <span aria-hidden="true">🛏️</span> Chambres
-                  <svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><span class="ico">🛏️</span> Chambres
+                  <svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 </span>
               </label>
               <label class="choice">
                 <input type="checkbox" name="zones[]" value="Restauration">
-                <span>
-                  <span aria-hidden="true">🍽️</span> Restauration
-                  <svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><span class="ico">🍽️</span> Restauration
+                  <svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 </span>
               </label>
               <label class="choice">
                 <input type="checkbox" name="zones[]" value="Buanderie">
-                <span>
-                  <span aria-hidden="true">🧺</span> Buanderie
-                  <svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><span class="ico">🧺</span> Buanderie
+                  <svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 </span>
               </label>
               <label class="choice">
                 <input type="checkbox" name="zones[]" value="Espaces extérieurs">
-                <span>
-                  <span aria-hidden="true">🌿</span> Espaces extérieurs
-                  <svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><polyline points="20 6 9 17 4 12"></polyline></svg>
+                <span><span class="ico">🌿</span> Espaces extérieurs
+                  <svg class="tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
                 </span>
               </label>
             </div>
           </fieldset>
-
-          <!-- Budget / Délai -->
-          <div class="two">
-            <p>
-              <label for="budget">Budget estimatif</label><br>
-              <select id="budget" name="budget">
-                <option value="">À définir</option>
-                <option>&lt; 10 000 €</option>
-                <option>10 000 – 50 000 €</option>
-                <option>&gt; 50 000 €</option>
-              </select>
-            </p>
-            <p>
-              <label for="delai">Délai souhaité</label><br>
-              <select id="delai" name="delai">
-                <option value="">Flexible</option>
-                <option>&lt; 1 mois</option>
-                <option>1 – 3 mois</option>
-                <option>&gt; 3 mois</option>
-              </select>
-            </p>
-          </div>
-
-          <!-- Mode de contact -->
-          <fieldset style="border:1px solid var(--bd); border-radius:12px; padding:12px">
-            <legend><b>Mode de contact préféré</b></legend>
-            <label><input type="radio" name="contact_pref" value="Email" checked> Email</label>
-            <label style="margin-left:16px"><input type="radio" name="contact_pref" value="Téléphone"> Téléphone</label>
-          </fieldset>
-
-          <p>
-            <label for="message">Contraintes / précisions</label><br>
-            <textarea id="message" name="message" rows="5" placeholder="Contraintes techniques, GTB, sites multiples, accès, horaires…"></textarea>
-          </p>
-
-          <!-- RGPD -->
-          <p class="consent" style="display:flex;align-items:center;gap:8px">
-            <input id="rgpd" type="checkbox" required>
-            <label for="rgpd">J’accepte d’être recontacté pour GO2INNOV.</label>
-          </p>
-
-          <!-- Anti-spam -->
-          <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
-          <input type="hidden" name="_subject" value="Nouveau lead GO2INNOV">
-
-          <p>
-            <button class="cta" type="submit">Envoyer</button>
-            <span id="status" class="status muted" role="status" aria-live="polite"></span>
-          </p>
-          <div id="form-alert" role="alert" aria-live="assertive" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"></div>
-        </form>
+        </div>
       </div>
-    </section>
+
+      <!-- Budget -->
+      <div class="row">
+        <label class="lbl" for="budget">Budget estimatif</label>
+        <div class="control">
+          <select id="budget" name="budget">
+            <option value="">À définir</option>
+            <option>&lt; 10 000 €</option>
+            <option>10 000 – 50 000 €</option>
+            <option>&gt; 50 000 €</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Délai -->
+      <div class="row">
+        <label class="lbl" for="delai">Délai souhaité</label>
+        <div class="control">
+          <select id="delai" name="delai">
+            <option value="">Flexible</option>
+            <option>&lt; 1 mois</option>
+            <option>1 – 3 mois</option>
+            <option>&gt; 3 mois</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- Mode de contact -->
+      <div class="row" style="align-items:start">
+        <span class="lbl">Mode de contact préféré</span>
+        <div class="control">
+          <div class="radio-list" role="radiogroup" aria-label="Mode de contact préféré">
+            <label><input type="radio" name="contact_pref" value="Email" checked> Email</label>
+            <label><input type="radio" name="contact_pref" value="Téléphone"> Téléphone</label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Message -->
+      <div class="row" style="align-items:start">
+        <label class="lbl" for="message">Contraintes / précisions</label>
+        <div class="control">
+          <textarea id="message" name="message" rows="5" placeholder="Contraintes techniques, GTB, sites multiples, accès, horaires…"></textarea>
+        </div>
+      </div>
+
+      <!-- RGPD -->
+      <div class="row">
+        <span class="lbl">RGPD <span class="req">*</span></span>
+        <div class="control">
+          <label style="display:flex;align-items:center;gap:10px">
+            <input id="rgpd" type="checkbox" required>
+            <span>J’accepte d’être recontacté pour GO2INNOV.</span>
+          </label>
+        </div>
+      </div>
+
+      <!-- Hidden / actions -->
+      <input type="text" name="_gotcha" style="display:none" tabindex="-1" autocomplete="off">
+      <input type="hidden" name="_subject" value="Nouveau lead GO2INNOV">
+
+      <div class="row">
+        <span class="lbl" aria-hidden="true"></span>
+        <div class="control">
+          <button class="cta" type="submit">Envoyer</button>
+          <span id="status" class="status muted" role="status" aria-live="polite" style="margin-left:10px"></span>
+          <div id="form-alert" role="alert" aria-live="assertive" style="position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden"></div>
+        </div>
+      </div>
+    </form>
+  </div>
+</section>
   </main>
 
   <!-- ===== FOOTER ===== -->
