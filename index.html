@@ -10,7 +10,7 @@
   <meta name="format-detection" content="telephone=no">
 
   <title>GO2INNOV — Autonomie hydrique pour l’hôtellerie en Guadeloupe</title>
-  <meta name="description" content="GO2INNOV assure une eau continue, maîtrisée et traçable pour l’hôtellerie et les résidences en Guadeloupe : stockage, filtration, capteurs IoT, supervision.">
+  <meta name="description" content="Eau continue, maîtrisée et traçable : GO2INNOV combine stockage, filtration, capteurs IoT et supervision pour l’hôtellerie et les résidences en Guadeloupe.">
 
   <!-- Open Graph / Twitter -->
   <meta property="og:type" content="website">
@@ -23,11 +23,11 @@
   <meta name="twitter:description" content="Eau continue et traçable : stockage, filtration, IoT, supervision.">
   <meta name="twitter:image" content="Image/cuve%20realiste.png">
 
-  <!-- Police Inter (comme V2X) + Preload image héro -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet">
-  <link rel="preload" as="image" href="Image/cuve%20realiste.png">
+  <!-- Police Inter + Preload hero -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="preload" as="image" href="Image/cuve%20realiste.png" />
 
   <!-- JSON-LD minimal -->
   <script type="application/ld+json">
@@ -41,37 +41,31 @@
   }
   </script>
 
-  <!-- ===== STYLES (esthétique V2X) ===== -->
+  <!-- ===== STYLES (esthétique V2X, dark bleu / light blanc, auto via système) ===== -->
   <style>
     :root{
-      --bg:#0b0b0c; --ink:#f5f7fb; --muted:#adb5c2;
-      --panel:rgba(255,255,255,.06); --bd:rgba(255,255,255,.12);
       --brand:#0a4466; --brand-2:#136e99; --accent:#ffd166;
       --radius:20px; --shadow:0 20px 60px rgba(0,0,0,.35);
       --gap:clamp(16px,2.2vw,28px); --pad:clamp(18px,2.6vw,34px);
       --container-w:1200px; --focus: rgba(56,189,248,.22);
+      /* Dark (par défaut si pas de préférence déclarée) */
+      --bg:#0a1530; --ink:#eaf2ff; --muted:#b7c6e0;
+      --panel:rgba(255,255,255,.06); --bd:rgba(255,255,255,.14);
     }
-    /* Mode clair auto (comme V2X) */
-    @media (prefers-color-scheme: light){
+    /* Mode sombre — bleu foncé */
+    @media (prefers-color-scheme: dark){
       :root{
-        --bg:#f7f8fb; --ink:#0e1116; --muted:#6b7280;
-        --panel:rgba(0,0,0,.03); --bd:rgba(0,0,0,.12);
-        --brand:#0a4466; --brand-2:#125e85;
-        --shadow:0 12px 40px rgba(0,0,0,.10);
+        --bg:#0a1530; --ink:#eaf2ff; --muted:#b7c6e0;
+        --panel:rgba(255,255,255,.06); --bd:rgba(255,255,255,.14);
       }
     }
-    /* Forcer via switch */
-    [data-theme="light"]{
-      --bg:#f7f8fb; --ink:#0e1116; --muted:#6b7280;
-      --panel:rgba(0,0,0,.03); --bd:rgba(0,0,0,.12);
-      --brand:#0a4466; --brand-2:#125e85;
-      --shadow:0 12px 40px rgba(0,0,0,.10);
-    }
-    [data-theme="dark"]{
-      --bg:#0b0b0c; --ink:#f5f7fb; --muted:#adb5c2;
-      --panel:rgba(255,255,255,.06); --bd:rgba(255,255,255,.12);
-      --brand:#0a4466; --brand-2:#136e99;
-      --shadow:0 20px 60px rgba(0,0,0,.35);
+    /* Mode clair — blanc pur */
+    @media (prefers-color-scheme: light){
+      :root{
+        --bg:#ffffff; --ink:#0e1116; --muted:#6b7280;
+        --panel:rgba(0,0,0,.03); --bd:rgba(0,0,0,.12);
+        --shadow:0 12px 40px rgba(0,0,0,.10);
+      }
     }
 
     *{box-sizing:border-box}
@@ -82,9 +76,9 @@
       font-family:Inter,ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;
       color:var(--ink);
       background:
-        radial-gradient(1100px 720px at 80% -10%, rgba(255,255,255,.07), transparent 60%),
-        radial-gradient(900px 600px at 10% -20%, rgba(255,255,255,.06), transparent 60%),
-        linear-gradient(180deg, #0a0a0b 0%, #101214 36%, #0c0c0d 100%),
+        radial-gradient(1100px 720px at 80% -10%, rgba(22,91,171,.18), transparent 60%),
+        radial-gradient(900px 600px at 12% -20%, rgba(10,68,102,.18), transparent 60%),
+        linear-gradient(180deg, var(--bg) 0%, color-mix(in oklab, var(--bg) 90%, #0e2a4d 10%) 36%, var(--bg) 100%),
         repeating-linear-gradient(45deg, rgba(255,255,255,.012) 0 2px, transparent 2px 6px),
         repeating-linear-gradient(-45deg, rgba(0,0,0,.015) 0 3px, transparent 3px 7px);
       background-blend-mode: screen,screen,normal,overlay,overlay;
@@ -94,7 +88,7 @@
       body{
         background:
           radial-gradient(1100px 720px at 80% -10%, rgba(0,0,0,.035), transparent 60%),
-          radial-gradient(900px 600px at 10% -20%, rgba(0,0,0,.04), transparent 60%),
+          radial-gradient(900px 600px at 12% -20%, rgba(0,0,0,.04), transparent 60%),
           linear-gradient(180deg, #ffffff 0%, #f4f6f9 40%, #eef2f7 100%),
           repeating-linear-gradient(45deg, rgba(0,0,0,.015) 0 2px, transparent 2px 6px),
           repeating-linear-gradient(-45deg, rgba(0,0,0,.012) 0 3px, transparent 3px 7px);
@@ -102,10 +96,10 @@
       }
     }
     @media (max-width:480px){
-      body{ background: linear-gradient(180deg, #0a0a0b 0%, #101214 60%, #0c0c0d 100%); }
-    }
-    @media (max-width:480px) and (prefers-color-scheme: light){
-      body{ background: linear-gradient(180deg, #ffffff 0%, #f4f6f9 50%, #eef2f7 100%); }
+      body{ background: linear-gradient(180deg, var(--bg) 0%, color-mix(in oklab, var(--bg), #0e2a4d 20%) 60%, var(--bg) 100%); }
+      @media (prefers-color-scheme: light){
+        body{ background: linear-gradient(180deg, #ffffff 0%, #f4f6f9 50%, #eef2f7 100%); }
+      }
     }
 
     img{max-width:100%; display:block; height:auto}
@@ -124,11 +118,11 @@
       outline:none; box-shadow:0 0 0 4px var(--focus)
     }
 
-    /* Header translucide (V2X) */
+    /* Header translucide */
     header{
       position:sticky; top:0; z-index:50;
       backdrop-filter:saturate(140%) blur(12px);
-      background:rgba(12,12,14,.45);
+      background:rgba(12,18,36,.55);
       border-bottom:1px solid var(--bd);
     }
     @media (prefers-color-scheme: light){ header{ background:rgba(255,255,255,.75) } }
@@ -143,13 +137,13 @@
     .ghost{padding:9px 14px; border:1px solid var(--bd); border-radius:10px; background:rgba(255,255,255,.04)}
     .cta{display:inline-grid; place-items:center; padding:10px 16px; border-radius:14px; background:#fff; color:#111; font-weight:800; box-shadow:0 10px 32px rgba(255,255,255,.12)}
     .cta:hover{ background:var(--brand); color:#fff }
-    .switch{display:inline-flex; align-items:center; gap:8px}
+    @media (prefers-color-scheme: light){ .cta{ background:var(--brand); color:#fff } .cta:hover{ filter:brightness(1.05) } }
     @media (max-width:860px){
       nav ul{display:none}
       .menu-btn{display:inline-flex; gap:8px; align-items:center}
       header.open ul{
         display:grid; gap:10px; position:absolute; left:0; right:0; top:60px;
-        background:rgba(12,12,14,.75); border-bottom:1px solid var(--bd); padding:14px; backdrop-filter:blur(10px)
+        background:rgba(12,18,36,.82); border-bottom:1px solid var(--bd); padding:14px; backdrop-filter:blur(10px)
       }
       @media (prefers-color-scheme: light){
         header.open ul{ background:rgba(255,255,255,.92) }
@@ -204,7 +198,7 @@
     #lightbox .close{position:absolute; top:2%; right:2%; font-size:32px; color:#fff; cursor:pointer}
     @keyframes zoomIn { from{transform:scale(.92); opacity:0} to{transform:scale(1); opacity:1} }
 
-    /* Reveal (V2X) */
+    /* Reveal */
     .reveal{opacity:0; transform:translateY(12px); transition:opacity .6s ease, transform .6s ease}
     .reveal.show{opacity:1; transform:none}
     .mockup-tilt{transform:perspective(1000px) rotateX(0) rotateY(0); transition:transform .2s ease}
@@ -215,7 +209,7 @@
   </style>
 </head>
 
-<body id="top" data-theme="dark">
+<body id="top">
   <a class="skip-to-content" href="#main">Aller au contenu principal</a>
 
   <!-- ===== HEADER ===== -->
@@ -235,11 +229,6 @@
           <li><a href="#contact">Contact</a></li>
         </ul>
       </nav>
-
-      <label class="switch" title="Basculer le thème (clair/sombre)">
-        <input id="mode" type="checkbox" aria-label="Mode sombre">
-        <span>🌙</span>
-      </label>
 
       <a class="cta" href="#contact">Demander une démo</a>
     </div>
@@ -403,41 +392,98 @@
       <p class="reveal"><a class="cta" href="#contact">Planifier un audit</a></p>
     </section>
 
-    <!-- CONTACT -->
+    <!-- CONTACT (Questionnaire amélioré) -->
     <section id="contact" class="section" aria-labelledby="contact-title">
       <div class="container">
         <div class="section-head reveal">
-          <h2 id="contact-title">Contact & démo</h2>
-          <p class="muted">Réponse sous 24 h ouvrées.</p>
+          <h2 id="contact-title">Contact & questionnaire de cadrage</h2>
+          <p class="muted">Réponse sous 24 h ouvrées. Les champs marqués d’un * sont requis.</p>
         </div>
 
         <form id="lead" class="card reveal" action="https://formspree.io/f/mgvnreoq" method="POST" novalidate aria-describedby="status">
+          <!-- Identité -->
           <div class="two">
-            <p><label for="nom">Nom <span aria-hidden="true">*</span></label><br>
+            <p>
+              <label for="nom">Nom *</label><br>
               <input id="nom" name="nom" required placeholder="Nom Prénom" autocomplete="name">
             </p>
-            <p><label for="email">Email <span aria-hidden="true">*</span></label><br>
+            <p>
+              <label for="email">Email *</label><br>
               <input id="email" name="email" type="email" required placeholder="vous@hotel.com" autocomplete="email">
             </p>
           </div>
 
           <div class="two">
-            <p><label for="etab">Établissement</label><br>
-              <input id="etab" name="etablissement" placeholder="Hôtel, résidence…">
+            <p>
+              <label for="etab">Établissement</label><br>
+              <input id="etab" name="etablissement" placeholder="Hôtel / Résidence / Groupe" autocomplete="organization">
             </p>
             <p>
-              <label for="ile">Île / Dépt.</label><br>
-              <select id="ile" name="ile">
+              <label for="tel">Téléphone</label><br>
+              <input id="tel" name="telephone" type="tel" inputmode="tel" placeholder="Optionnel" autocomplete="tel" pattern="^[0-9+().\-\\s]{6,}$">
+            </p>
+          </div>
+
+          <div class="two">
+            <p>
+              <label for="ile">Île / Département *</label><br>
+              <select id="ile" name="ile" required>
                 <option value="">Sélectionner</option>
                 <option>Guadeloupe</option><option>Martinique</option><option>Guyane</option>
                 <option>La Réunion</option><option>Mayotte</option><option>Polynésie</option>
                 <option>Nouvelle-Calédonie</option><option>Saint-Martin</option><option>Saint-Barth</option>
               </select>
             </p>
+            <p>
+              <label for="capacite">Capacité de stockage visée (m³)</label><br>
+              <input id="capacite" name="capacite_m3" type="number" min="1" step="0.1" placeholder="ex. 3">
+            </p>
           </div>
 
-          <p><label for="message">Vos besoins</label><br>
-            <textarea id="message" name="message" rows="5" placeholder="Capacité, zones à desservir, contraintes…"></textarea>
+          <!-- Zones à desservir -->
+          <fieldset style="border:1px solid var(--bd); border-radius:12px; padding:12px">
+            <legend><b>Zones à desservir</b></legend>
+            <p class="muted" id="zones-hint">Sélectionnez une ou plusieurs zones.</p>
+            <div class="two" role="group" aria-describedby="zones-hint">
+              <label><input type="checkbox" name="zones[]" value="Chambres"> Chambres</label>
+              <label><input type="checkbox" name="zones[]" value="Restauration"> Restauration</label>
+              <label><input type="checkbox" name="zones[]" value="Buanderie"> Buanderie</label>
+              <label><input type="checkbox" name="zones[]" value="Espaces extérieurs"> Espaces extérieurs</label>
+            </div>
+          </fieldset>
+
+          <!-- Budget / Délai -->
+          <div class="two">
+            <p>
+              <label for="budget">Budget estimatif</label><br>
+              <select id="budget" name="budget">
+                <option value="">À définir</option>
+                <option>&lt; 10 000 €</option>
+                <option>10 000 – 50 000 €</option>
+                <option>&gt; 50 000 €</option>
+              </select>
+            </p>
+            <p>
+              <label for="delai">Délai souhaité</label><br>
+              <select id="delai" name="delai">
+                <option value="">Flexible</option>
+                <option>&lt; 1 mois</option>
+                <option>1 – 3 mois</option>
+                <option>&gt; 3 mois</option>
+              </select>
+            </p>
+          </div>
+
+          <!-- Mode de contact -->
+          <fieldset style="border:1px solid var(--bd); border-radius:12px; padding:12px">
+            <legend><b>Mode de contact préféré</b></legend>
+            <label><input type="radio" name="contact_pref" value="Email" checked> Email</label>
+            <label style="margin-left:16px"><input type="radio" name="contact_pref" value="Téléphone"> Téléphone</label>
+          </fieldset>
+
+          <p>
+            <label for="message">Contraintes / précisions</label><br>
+            <textarea id="message" name="message" rows="5" placeholder="Contraintes techniques, GTB, sites multiples, accès, horaires…"></textarea>
           </p>
 
           <!-- RGPD -->
@@ -468,7 +514,7 @@
     </div>
   </footer>
 
-  <!-- ===== SCRIPTS (réveil, tilt, menu, thème, lightbox, compteurs, form) ===== -->
+  <!-- ===== SCRIPTS ===== -->
   <script>
     const $ = (s, r=document) => r.querySelector(s);
     const $$ = (s, r=document) => [...r.querySelectorAll(s)];
@@ -482,21 +528,7 @@
       btn.setAttribute('aria-expanded', open ? 'true' : 'false');
     });
 
-    /* Thème clair/sombre (persistance) */
-    const saved = localStorage.getItem('theme');
-    const prefersDark = matchMedia('(prefers-color-scheme: dark)').matches;
-    document.body.setAttribute('data-theme', saved || (prefersDark ? 'dark' : 'light'));
-    const mode = $('#mode');
-    if (mode){
-      mode.checked = (document.body.getAttribute('data-theme') === 'dark');
-      mode.addEventListener('change', () => {
-        const t = mode.checked ? 'dark' : 'light';
-        document.body.setAttribute('data-theme', t);
-        localStorage.setItem('theme', t);
-      });
-    }
-
-    /* Navigation ancre + fermeture menu */
+    /* Ancre + fermeture menu */
     $$('a[href^="#"]').forEach(a => a.addEventListener('click', e => {
       const id = a.getAttribute('href').slice(1), el = $('#'+id);
       if (el) {
@@ -507,7 +539,7 @@
       }
     }));
 
-    /* Reveal on scroll (respect reduced motion) */
+    /* Reveal on scroll */
     const prefersReduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (!prefersReduce && 'IntersectionObserver' in window) {
       const io = new IntersectionObserver((entries)=>{
@@ -589,21 +621,27 @@
       const form = $('#lead'), status = $('#status'), alertLive = $('#form-alert');
       if (!form) return;
       const setInvalid = (el, invalid=true) => { if (!el) return; el.setAttribute('aria-invalid', invalid ? 'true' : 'false'); };
+
       form.addEventListener('submit', async (e) => {
         e.preventDefault();
         const data = Object.fromEntries(new FormData(form).entries());
         const rgpd = $('#rgpd');
+
         let ok = true;
         if (!data.nom){ ok=false; setInvalid($('#nom'), true); }
         if (!data.email || !/.+@.+\..+/.test(data.email)){ ok=false; setInvalid($('#email'), true); }
+        if (!data.ile){ ok=false; setInvalid($('#ile'), true); }
         if (!rgpd?.checked){ ok=false; }
         if (!ok){
           const msg = 'Champs requis manquants ou invalides.';
-          status.textContent = msg; status.style.color = '#e11d48'; alertLive.textContent = msg;
+          status.textContent = msg; status.style.color = '#e11d48';
+          alertLive.textContent = msg;
           return;
         }
-        setInvalid($('#nom'), false); setInvalid($('#email'), false);
+        setInvalid($('#nom'), false); setInvalid($('#email'), false); setInvalid($('#ile'), false);
+
         status.textContent = 'Envoi en cours…'; status.style.color = 'inherit';
+
         try{
           const res = await fetch(form.action, { method:'POST', headers:{'Accept':'application/json'}, body:new FormData(form) });
           if (res.ok){
@@ -618,7 +656,12 @@
           status.textContent = msg; status.style.color = '#e11d48'; alertLive.textContent = msg;
         }
       });
-      ['nom','email'].forEach(id=>{ const el = $('#'+id); el && el.addEventListener('input', ()=> setInvalid(el, false)); });
+
+      ['nom','email','ile'].forEach(id=>{
+        const el = $('#'+id);
+        el && el.addEventListener('input', ()=> setInvalid(el, false));
+        el && el.addEventListener('change', ()=> setInvalid(el, false));
+      });
     })();
   </script>
 </body>
