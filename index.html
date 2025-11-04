@@ -197,196 +197,124 @@
     .mockup-tilt{transform:perspective(1000px) rotateX(0) rotateY(0); transition:transform .2s ease}
     @media (prefers-reduced-motion: reduce){ .reveal{opacity:1; transform:none} .mockup-tilt{transition:none} }
 
-    /* ==== Chips (checkbox) pour le questionnaire ==== */
-    .choices{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:10px; }
-    .choice{ position:relative; display:block; }
-    .choice input{ position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer; }
-    .choice span{
-      display:flex; align-items:center; gap:10px; padding:12px 14px; border:1px solid var(--bd);
-      border-radius:12px; background:var(--panel); color:var(--ink); backdrop-filter:blur(8px);
-      box-shadow:var(--shadow); transition:transform .06s ease, border-color .2s ease, background .2s ease, color .2s ease;
+    /* ===== Form layout aligné (labels à gauche / champs à droite) ===== */
+    #lead.form { padding: var(--pad); }
+    #lead.form .row{
+      display:grid;
+      grid-template-columns: 220px 1fr;
+      gap:14px;
+      align-items:center;
+      margin:10px 0;
     }
-    .choice .tick{ margin-left:auto; width:18px; height:18px; opacity:0; transform:scale(.85); transition:opacity .18s ease, transform .18s ease; }
-    .choice input:not(:checked) + span:hover{ border-color:rgba(255,255,255,.28); transform:translateY(-1px); }
-    @media (prefers-color-scheme: light){ .choice input:not(:checked) + span:hover{ border-color:rgba(0,0,0,.18); } }
-    .choice input:checked + span{ border-color: color-mix(in oklab, var(--brand) 70%, white 30%); background: linear-gradient(180deg, rgba(10,68,102,.14), rgba(255,255,255,.055)); }
-    @media (prefers-color-scheme: light){ .choice input:checked + span{ border-color: color-mix(in oklab, var(--brand) 60%, white 40%); background: linear-gradient(180deg, rgba(10,68,102,.08), rgba(0,0,0,.02)); } }
-    .choice input:focus-visible + span{ outline:none; box-shadow:0 0 0 4px var(--focus); }
-    .choice input:checked + span .tick{ opacity:1; transform:scale(1); }
-    @media (max-width:480px){ .choice span{ padding:12px 16px; } }
+    #lead.form .lbl{
+      font-weight:700;
+      letter-spacing:.01em;
+      color:var(--ink);
+    }
+    #lead.form .lbl .req{ color:#ef4444; margin-left:4px; font-weight:800 }
+    #lead.form .control{ min-width:0 }
 
-    /* ==== Champs email / téléphone stylés ==== */
-    .field{display:block}
-    .field label{display:inline-block;margin:0 0 6px;font-weight:600}
-    .field small{display:block;font-size:.9rem;line-height:1.35}
-    .hint{color:var(--muted)}
-    .error{color:#ef4444;display:none}
-    .field[data-state="error"] .error{display:block}
-    .field[data-state="error"] .hint{display:none}
+    @media (max-width:900px){
+      #lead.form .row{ grid-template-columns:1fr; align-items:start }
+      #lead.form .lbl{ margin-bottom:6px }
+    }
 
-    .input-wrap{position:relative}
+    /* Harmonisation inputs/selects/textarea */
+    #lead.form input, #lead.form select, #lead.form textarea{
+      width:100%; padding:12px 14px;
+      border-radius:12px; border:1px solid var(--bd);
+      background:rgba(255,255,255,.06); color:var(--ink);
+    }
+    #lead.form input:focus, #lead.form select:focus, #lead.form textarea:focus{
+      outline:none; box-shadow:0 0 0 4px var(--focus); border-color:transparent;
+    }
+
+    /* Supprime l’apparence des flèches nombre (WebKit) */
+    #lead.form input[type="number"]::-webkit-outer-spin-button,
+    #lead.form input[type="number"]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0 }
+    #lead.form input[type="number"]{ -moz-appearance:textfield }
+
+    /* Champs avec icône */
+    .field{ display:block }
+    .input-wrap{ position:relative }
     .input-wrap .icon{
-      position:absolute;left:12px;top:50%;transform:translateY(-50%);
-      opacity:.7;pointer-events:none;display:grid;place-items:center;width:20px;height:20px;
+      position:absolute; left:12px; top:50%; transform:translateY(-50%);
+      opacity:.75; width:20px; height:20px; display:grid; place-items:center; pointer-events:none;
     }
     .input-wrap .state{
-      position:absolute;right:12px;top:50%;transform:translateY(-50%);
-      width:18px;height:18px;display:none;
+      position:absolute; right:12px; top:50%; transform:translateY(-50%);
+      width:18px; height:18px; display:none;
     }
-    .field[data-state="valid"] .state.valid{display:block;color:#16a34a}
-    .field[data-state="error"] .state.error{display:block;color:#ef4444}
-    .input-wrap input{padding-left:42px}
-    .field[data-state="valid"] input{border-color:rgba(22,163,74,.6)}
-    .field[data-state="error"] input{border-color:rgba(239,68,68,.8)}
-    /* ===== Form layout aligné (labels à gauche / champs à droite) ===== */
-#lead.form { padding: var(--pad); }
-#lead.form .row{
-  display:grid;
-  grid-template-columns: 220px 1fr;
-  gap:14px;
-  align-items:center;
-  margin:10px 0;
-}
-#lead.form .lbl{
-  font-weight:700;
-  letter-spacing:.01em;
-  color:var(--ink);
-}
-#lead.form .lbl .req{ color:#ef4444; margin-left:4px; font-weight:800 }
-#lead.form .control{ min-width:0 } /* évite les débordements */
+    .field[data-state="valid"] .state.valid{ display:block; color:#16a34a }
+    .field[data-state="error"] .state.error{ display:block; color:#ef4444 }
+    .input-wrap input{ padding-left:42px }
+    .hint{ color:var(--muted); margin-top:6px; display:block; font-size:.92rem }
+    .error{ color:#ef4444; margin-top:6px; display:none; font-size:.92rem }
+    .field[data-state="error"] .error{ display:block }
+    .field[data-state="error"] .hint{ display:none }
 
-@media (max-width:900px){
-  #lead.form .row{ grid-template-columns:1fr; align-items:start }
-  #lead.form .lbl{ margin-bottom:6px }
-}
+    /* Fieldset : on enlève le "double panneau" */
+    #lead.form fieldset{
+      border:0;
+      background:transparent;
+      padding:0;
+    }
+    #lead.form legend{ padding:0 0 8px; font-weight:800; letter-spacing:.01em }
 
-/* Harmonisation inputs/selects/textarea */
-#lead.form input, #lead.form select, #lead.form textarea{
-  width:100%; padding:12px 14px;
-  border-radius:12px; border:1px solid var(--bd);
-  background:rgba(255,255,255,.06); color:var(--ink);
-}
-#lead.form input:focus, #lead.form select:focus, #lead.form textarea:focus{
-  outline:none; box-shadow:0 0 0 4px var(--focus); border-color:transparent;
-}
+    /* Conteneur stylé pour les chips */
+    #lead.form .choices{
+      padding:12px;
+      border:1px solid var(--bd);
+      border-radius:14px;
+      background:var(--panel);
+      backdrop-filter:blur(8px);
+    }
 
-/* Supprime l’apparence des flèches nombre (WebKit) */
-#lead.form input[type="number"]::-webkit-outer-spin-button,
-#lead.form input[type="number"]::-webkit-inner-spin-button{ -webkit-appearance:none; margin:0 }
-#lead.form input[type="number"]{ -moz-appearance:textfield }
+    /* ======= Chips (checkbox) corrigées (ANTI double case natif) ======= */
+    .choices{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:10px }
+    .choice{ position:relative; display:block }
+    /* On masque complètement l'UI native tout en gardant l'accessibilité clavier */
+    .choice input[type="checkbox"]{
+      position:absolute;
+      appearance:none; -webkit-appearance:none; -moz-appearance:none;
+      opacity:0; width:0; height:0; margin:0; padding:0; border:0;
+      clip:rect(0 0 0 0); clip-path:inset(50%); overflow:hidden;
+      pointer-events:none;
+    }
+    .choice span{
+      display:flex; align-items:center; gap:12px;
+      padding:12px 14px; border:1px solid var(--bd);
+      border-radius:12px; background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
+      color:var(--ink); box-shadow:var(--shadow);
+      transition:transform .06s ease, border-color .2s ease, background .2s ease;
+      cursor:pointer;
+    }
+    .choice .ico{
+      width:30px; height:30px; border-radius:10px;
+      display:grid; place-items:center;
+      background:rgba(255,255,255,.08); border:1px solid var(--bd);
+      font-size:17px;
+    }
+    .choice .tick{ margin-left:auto; width:18px; height:18px; opacity:0; transform:scale(.85); transition:opacity .18s ease, transform .18s ease }
+    .choice input:not(:checked) + span:hover{ border-color:rgba(255,255,255,.26); transform:translateY(-1px) }
+    @media (prefers-color-scheme: light){ .choice input:not(:checked) + span:hover{ border-color:rgba(0,0,0,.18) } }
+    .choice input:checked + span{
+      border-color: color-mix(in oklab, var(--brand) 70%, white 30%);
+      background:linear-gradient(180deg, rgba(10,68,102,.14), rgba(255,255,255,.055));
+    }
+    @media (prefers-color-scheme: light){
+      .choice input:checked + span{
+        border-color: color-mix(in oklab, var(--brand) 60%, white 40%);
+        background:linear-gradient(180deg, rgba(10,68,102,.08), rgba(0,0,0,.02));
+      }
+    }
+    .choice input:focus-visible + span{ outline:none; box-shadow:0 0 0 4px var(--focus) }
+    .choice input:checked + span .tick{ opacity:1; transform:scale(1) }
 
-/* Champs avec icône (garde ton système) */
-#lead.form .field{ display:block }
-#lead.form .input-wrap{ position:relative }
-#lead.form .input-wrap .icon{
-  position:absolute; left:12px; top:50%; transform:translateY(-50%);
-  opacity:.75; width:20px; height:20px; display:grid; place-items:center; pointer-events:none;
-}
-#lead.form .input-wrap input,
-#lead.form .input-wrap select,
-#lead.form .input-wrap textarea{ padding-left:42px }
-#lead.form .input-wrap .state{
-  position:absolute; right:12px; top:50%; transform:translateY(-50%); width:18px; height:18px; display:none;
-}
-#lead.form .field[data-state="valid"] .state.valid{ display:block; color:#16a34a }
-#lead.form .field[data-state="error"] .state.error{ display:block; color:#ef4444 }
-#lead.form .hint{ color:var(--muted); margin-top:6px; display:block; font-size:.92rem }
-#lead.form .error{ color:#ef4444; margin-top:6px; display:none; font-size:.92rem }
-#lead.form .field[data-state="error"] .error{ display:block }
-#lead.form .field[data-state="error"] .hint{ display:none }
-
-/* Fieldset (groupes) */
-#lead.form fieldset{
-  border:1px solid var(--bd);
-  border-radius:14px;
-  padding:16px;
-  background:var(--panel);
-  backdrop-filter:blur(8px);
-}
-#lead.form legend{ padding:0 6px; font-weight:800; letter-spacing:.01em }
-
-/* Chips (checkbox) retravaillées */
-.choices{ display:grid; grid-template-columns:repeat(auto-fit, minmax(180px,1fr)); gap:10px }
-.choice{ position:relative; display:block }
-.choice input{ position:absolute; inset:0; width:100%; height:100%; opacity:0; cursor:pointer }
-.choice span{
-  display:flex; align-items:center; gap:12px;
-  padding:12px 14px; border:1px solid var(--bd);
-  border-radius:12px; background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.03));
-  color:var(--ink); box-shadow:var(--shadow);
-  transition:transform .06s ease, border-color .2s ease, background .2s ease;
-}
-.choice .ico{
-  width:30px; height:30px; border-radius:10px;
-  display:grid; place-items:center;
-  background:rgba(255,255,255,.08); border:1px solid var(--bd);
-  font-size:17px;
-}
-.choice .tick{ margin-left:auto; width:18px; height:18px; opacity:0; transform:scale(.85); transition:opacity .18s ease, transform .18s ease }
-.choice input:not(:checked) + span:hover{ border-color:rgba(255,255,255,.26); transform:translateY(-1px) }
-@media (prefers-color-scheme: light){ .choice input:not(:checked) + span:hover{ border-color:rgba(0,0,0,.18) } }
-.choice input:checked + span{
-  border-color: color-mix(in oklab, var(--brand) 70%, white 30%);
-  background:linear-gradient(180deg, rgba(10,68,102,.14), rgba(255,255,255,.055));
-}
-@media (prefers-color-scheme: light){
-  .choice input:checked + span{
-    border-color: color-mix(in oklab, var(--brand) 60%, white 40%);
-    background:linear-gradient(180deg, rgba(10,68,102,.08), rgba(0,0,0,.02));
-  }
-}
-.choice input:focus-visible + span{ outline:none; box-shadow:0 0 0 4px var(--focus) }
-.choice input:checked + span .tick{ opacity:1; transform:scale(1) }
-
-/* Radios proprettes */
-.radio-list{ display:flex; gap:18px; align-items:center; flex-wrap:wrap }
-.radio-list label{ display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border:1px solid var(--bd); border-radius:999px; background:var(--panel) }
-.radio-list input{ transform:scale(1.1) }
-    /* ---- FIX 1 : enlever l'effet "double case" du fieldset ---- */
-#lead.form fieldset{
-  border:0 !important;
-  background:transparent !important;
-  padding:0 !important;
-}
-#lead.form legend{
-  padding:0;
-  margin:0 0 10px;
-  font-weight:800;
-}
-
-/* On donne le look "panneau" au conteneur des chips, pas au fieldset */
-#lead.form .choices{
-  padding:12px;
-  border:1px solid var(--bd);
-  border-radius:14px;
-  background:var(--panel);
-  backdrop-filter:blur(8px);
-}
-
-/* ---- FIX 2 : masquer VRAIMENT l'UI native des checkboxes (iOS/Safari/Chromium) ---- */
-.choice input{
-  position:absolute;          /* accessible via le <label> */
-  left:0; top:0;
-  width:1px; height:1px;      /* réduit à 1px pour éviter tout rendu natif */
-  opacity:0;                  /* invisible */
-  pointer-events:none;        /* on clique sur le label/span */
-  appearance:none;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-}
-
-/* (Optionnel) chips un peu plus nettes au survol / sélection */
-.choice input:not(:checked) + span:hover{
-  border-color:rgba(255,255,255,.24);
-  transform:translateY(-1px);
-}
-@media (prefers-color-scheme: light){
-  .choice input:not(:checked) + span:hover{ border-color:rgba(0,0,0,.18); }
-}
-.choice input:checked + span{
-  border-color: color-mix(in oklab, var(--brand) 65%, white 35%);
-  background: linear-gradient(180deg, rgba(10,68,102,.14), rgba(255,255,255,.05));
-}
+    /* Radios */
+    .radio-list{ display:flex; gap:18px; align-items:center; flex-wrap:wrap }
+    .radio-list label{ display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border:1px solid var(--bd); border-radius:999px; background:var(--panel) }
+    .radio-list input{ transform:scale(1.1) }
   </style>
 </head>
 
@@ -573,36 +501,55 @@
       <p class="reveal"><a class="cta" href="#contact">Planifier un audit</a></p>
     </section>
 
-   <section id="contact" class="section" aria-labelledby="contact-title">
-  <div class="container">
-    <div class="section-head reveal">
-      <h2 id="contact-title">Contact & questionnaire de cadrage</h2>
-      <p class="muted">Réponse sous 24 h ouvrées. Les champs marqués d’un <b>*</b> sont requis.</p>
-    </div>
-
-    <form id="lead" class="card form reveal" action="https://formspree.io/f/mgvnreoq" method="POST" novalidate aria-describedby="status">
-      <!-- Nom -->
-      <div class="row">
-        <label class="lbl" for="nom">Nom <span class="req">*</span></label>
-        <div class="control field" id="field-nom" data-state="">
-          <div class="input-wrap">
-            <span class="icon" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
-                <circle cx="12" cy="7" r="4"></circle><path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path>
-              </svg>
-            </span>
-            <input id="nom" name="nom" required placeholder="Nom Prénom" autocomplete="name" aria-describedby="nom-hint nom-err" aria-invalid="false">
-            <span class="state valid" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
-            </span>
-            <span class="state error" aria-hidden="true">
-              <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
-            </span>
-          </div>
-          <small id="nom-hint" class="hint">Vos nom et prénom.</small>
-          <small id="nom-err" class="error">Nom requis.</small>
+    <!-- CONTACT + QUESTIONNAIRE -->
+    <section id="contact" class="section" aria-labelledby="contact-title">
+      <div class="container">
+        <div class="section-head reveal">
+          <h2 id="contact-title">Contact & questionnaire de cadrage</h2>
+          <p class="muted">Réponse sous 24 h ouvrées. Les champs marqués d’un <b>*</b> sont requis.</p>
         </div>
-      </div>
+
+        <form id="lead" class="card form reveal" action="https://formspree.io/f/mgvnreoq" method="POST" novalidate aria-describedby="status">
+          <!-- Nom -->
+          <div class="row">
+            <label class="lbl" for="nom">Nom <span class="req">*</span></label>
+            <div class="control field" id="field-nom" data-state="">
+              <div class="input-wrap">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="7" r="4"></circle><path d="M5.5 21a6.5 6.5 0 0 1 13 0"></path>
+                  </svg>
+                </span>
+                <input id="nom" name="nom" required placeholder="Nom Prénom" autocomplete="name" aria-describedby="nom-hint nom-err" aria-invalid="false">
+                <span class="state valid" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <span class="state error" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </span>
+              </div>
+              <small id="nom-hint" class="hint">Vos nom et prénom.</small>
+              <small id="nom-err" class="error">Nom requis.</small>
+            </div>
+          </div>
+
+          <!-- Email -->
+          <div class="row">
+            <label class="lbl" for="email">Email <span class="req">*</span></label>
+            <div class="control field" id="field-email" data-state="">
+              <div class="input-wrap">
+                <span class="icon" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2">
+                    <path d="M4 4h16v16H4z"/><path d="m22 6-10 7L2 6"/>
+                  </svg>
+                </span>
+                <input id="email" name="email" type="email" required placeholder="vous@hotel.com"
+                       autocomplete="email" inputmode="email" aria-describedby="email-hint email-err" aria-invalid="false">
+                <span class="state valid" aria-hidden="true">
+                  <svg viewBox="0 0 24 24" width="18" height="18" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+                </span>
+                <span class="state error" aria-hidden="true">
+                 
 
       <!-- Email -->
       <div class="row">
