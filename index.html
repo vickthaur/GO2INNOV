@@ -342,6 +342,51 @@
 .radio-list{ display:flex; gap:18px; align-items:center; flex-wrap:wrap }
 .radio-list label{ display:inline-flex; gap:8px; align-items:center; padding:8px 12px; border:1px solid var(--bd); border-radius:999px; background:var(--panel) }
 .radio-list input{ transform:scale(1.1) }
+    /* ---- FIX 1 : enlever l'effet "double case" du fieldset ---- */
+#lead.form fieldset{
+  border:0 !important;
+  background:transparent !important;
+  padding:0 !important;
+}
+#lead.form legend{
+  padding:0;
+  margin:0 0 10px;
+  font-weight:800;
+}
+
+/* On donne le look "panneau" au conteneur des chips, pas au fieldset */
+#lead.form .choices{
+  padding:12px;
+  border:1px solid var(--bd);
+  border-radius:14px;
+  background:var(--panel);
+  backdrop-filter:blur(8px);
+}
+
+/* ---- FIX 2 : masquer VRAIMENT l'UI native des checkboxes (iOS/Safari/Chromium) ---- */
+.choice input{
+  position:absolute;          /* accessible via le <label> */
+  left:0; top:0;
+  width:1px; height:1px;      /* réduit à 1px pour éviter tout rendu natif */
+  opacity:0;                  /* invisible */
+  pointer-events:none;        /* on clique sur le label/span */
+  appearance:none;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+}
+
+/* (Optionnel) chips un peu plus nettes au survol / sélection */
+.choice input:not(:checked) + span:hover{
+  border-color:rgba(255,255,255,.24);
+  transform:translateY(-1px);
+}
+@media (prefers-color-scheme: light){
+  .choice input:not(:checked) + span:hover{ border-color:rgba(0,0,0,.18); }
+}
+.choice input:checked + span{
+  border-color: color-mix(in oklab, var(--brand) 65%, white 35%);
+  background: linear-gradient(180deg, rgba(10,68,102,.14), rgba(255,255,255,.05));
+}
   </style>
 </head>
 
